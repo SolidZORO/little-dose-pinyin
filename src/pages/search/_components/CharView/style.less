@@ -2,7 +2,6 @@
 
 .wrapper {
   height: 280px;
-  text-align: center;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -10,26 +9,35 @@
 }
 
 .view-wrapper {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
   background-color: transparent;
 }
 
 .text-char,
 .text-emoji {
   display: inline-block;
+  position: relative;
+  vertical-align: middle;
 }
 
 .text-char {
   font-family: 'Courier New', sans-serif;
   font-weight: 600;
-  margin-right: 20px;
-  vertical-align: top;
+  margin-right: 40px;
   line-height: 1;
 }
 
 .text-char-text {
-  font-size: 120px;
+  font-size: 140px;
+  font-weight: 400;
+  vertical-align: middle;
 }
 
 .text-emoji {
   font-weight: 600;
+  width: 168px;
+  height: 168px;
 }

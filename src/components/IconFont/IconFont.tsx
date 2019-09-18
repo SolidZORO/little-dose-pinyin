@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro';
 
-import '@/assets/fonts/fi/iconfont';
+import './icon';
 
 interface IProps {
   type?: string;

@@ -3,7 +3,6 @@ import Taro, { Component, Config } from '@tarojs/taro';
 
 import Search from '@/pages/search/search';
 import '@/libs/promise-finally.lib';
-// import '@/assets/fonts/fi/iconfont';
 
 import '@/styles/global.less';
 

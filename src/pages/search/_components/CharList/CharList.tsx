@@ -3,6 +3,7 @@ import { View, Text } from '@tarojs/components';
 import cx from 'classnames';
 
 import { IChar } from '@/interfaces';
+import { voiceConfig } from '@/configs';
 
 import style from './style.less';
 
@@ -14,8 +15,29 @@ interface IProps {
 
 export const CharList = (props: IProps) => {
   const [selectedChar, setSelectedChar] = useState<IChar>();
+  const [playerCtx] = useState<any>(Taro.createInnerAudioContext());
+  const [playerStatus, setPlayerStatus] = useState<boolean>(false);
+
+  const player = (src: string) => {
+    if (playerStatus) {
+      playerCtx.stop();
+    }
+
+    playerCtx.autoplay = true;
+    playerCtx.loop = false;
+    playerCtx.src = src;
+
+    playerCtx.onPlay(() => {
+      setPlayerStatus(true);
+    });
+
+    playerCtx.onEnded(() => {
+      setPlayerStatus(false);
+    });
+  };
 
   const onSelectedCharCallback = (i: IChar) => {
+    player(voiceConfig[`vc${i.path}`]);
     setSelectedChar(i);
 
     if (props.onSelectedCharCallback) {

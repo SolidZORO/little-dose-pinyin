@@ -12,6 +12,9 @@ declare module '*.jpeg';
 declare module '*.svg';
 declare module '*.gif';
 declare module '*.ico';
+declare module '*.svg';
+
+declare module '*.mp3';
 
 declare namespace JSX {
   interface IntrinsicElements {
