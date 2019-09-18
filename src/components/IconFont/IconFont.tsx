@@ -1,26 +1,19 @@
-import cx from 'classnames';
 import Taro from '@tarojs/taro';
-import { Text } from '@tarojs/components';
 
-import '@/assets/fonts/fi/iconfont.global.less';
+import '@/assets/fonts/fi/iconfont';
 
 interface IProps {
   type?: string;
   className?: string;
   size?: number;
-  color?: string;
   style?: any;
 }
 
 export const IconFont = (props: IProps) => {
   return (
-    <Text
-      className={cx('fi', `anticon-${props.type}`, props.className)}
-      style={{
-        ...props.style,
-        fontSize: `${props.size}px`,
-        color: props.color,
-      }}
-    />
+    // prettier-ignore
+    // @ts-ignore
+    // eslint-disable-next-line max-len
+    <svg className="icon" aria-hidden="true" style={{ ...props.style, width: `${props.size}px`, height: `${props.size}px` }}><use xlinkHref={`#icon-${props.type}`} /></svg>
   );
 };

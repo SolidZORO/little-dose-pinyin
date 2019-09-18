@@ -1,0 +1,51 @@
+@import '../../../../styles/variables.less';
+
+.wrapper {
+  //margin: 0 @page-wrapper-padding-x;
+  //margin: 0 40px;
+  //display: flex;
+  //background-color: #f00;
+  padding: 40px 20px;
+  border-top: 1px solid #ddd;
+}
+
+.char-list {
+  //display: block;
+  display: flex;
+  flex-direction: row;
+  //justify-content: space-around;
+  justify-content: start;
+}
+
+.char-item {
+  //width: 11%;
+  vertical-align: center;
+  display: inline-block;
+  text-align: center;
+  font-family: 'Courier New', sans-serif;
+  font-weight: 600;
+  line-height: 1;
+  margin: 15px 0;
+  border-radius: 100px;
+  border: 2px solid transparent;
+}
+
+.char-item-text {
+  display: inline-block;
+  line-height: 1;
+  font-size: 32px;
+  padding: 10px 15px;
+}
+
+.char-item--row-quntity-8 {
+  width: 12%;
+}
+
+.char-item--row-quntity-6 {
+  width: 18%;
+}
+
+.char-item--active {
+  background-color: #ffff01;
+  border-color: #c7c701;
+}

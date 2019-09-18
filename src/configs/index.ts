@@ -1,2 +1,2 @@
 export * from './env.config';
-export * from './character.config';
+export * from './char.config';

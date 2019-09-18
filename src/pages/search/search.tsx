@@ -1,29 +1,25 @@
-import Taro from '@tarojs/taro';
-import { View, Text, Button } from '@tarojs/components';
+import Taro, { useEffect, useState } from '@tarojs/taro';
+import { View } from '@tarojs/components';
+import { charConfig } from '@/configs';
+import { IChar } from '@/interfaces';
 
-export default class extends Taro.Component {
-  componentDidMount() {
-    Taro.setNavigationBarTitle({ title: 'pinyin' }).then();
+import { CharList } from './_components/CharList/CharList';
+import { CharView } from './_components/CharView/CharView';
 
-    // Taro.switchTab({ url: '/pages/article/article-list' }).then();
-    // Taro.navigateTo({ url: '/pages/article/article-item?id=28' }).then();
-    // Taro.switchTab({ url: '/pages/account/account' }).then();
-  }
+import style from './style.less';
 
-  // componentDidShow() {
-  //   if (typeof this.$scope.getTabBar === 'function' && this.$scope.getTabBar()) {
-  //     this.$scope.getTabBar().$component.setState({
-  //       selectedSlug: 'home',
-  //     });
-  //   }
-  // }
+export default () => {
+  const [selectedChar, setSelectedChar] = useState<IChar>();
 
-  public render() {
-    return (
-      <View>
-        <Text>Search</Text>
-        <Button onClick={() => Taro.navigateTo({ url: '/pages/game/game' })}>Account</Button>
-      </View>
-    );
-  }
-}
+  useEffect(() => {
+    Taro.setNavigationBarTitle({ title: 'pinyinx' }).then();
+  }, []);
+
+  return (
+    <View className={style['wrapper']}>
+      <CharView selectedChar={selectedChar} />
+      <CharList charList={charConfig.shengmu} rowQuntity={8} onSelectedCharCallback={setSelectedChar} />
+      <CharList charList={charConfig.yunmu} rowQuntity={6} onSelectedCharCallback={setSelectedChar} />
+    </View>
+  );
+};
