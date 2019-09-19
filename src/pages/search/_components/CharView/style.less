@@ -1,7 +1,7 @@
 @import '../../../../styles/variables.less';
 
 .wrapper {
-  height: 280px;
+  height: 260px;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -16,28 +16,51 @@
   background-color: transparent;
 }
 
-.text-char,
-.text-emoji {
+.image-wrapper,
+.info-wrapper {
+  text-align: center;
   display: inline-block;
   position: relative;
   vertical-align: middle;
 }
 
-.text-char {
-  font-family: 'Courier New', sans-serif;
-  font-weight: 600;
-  margin-right: 40px;
-  line-height: 1;
+.image-wrapper {
+  width: 158px;
+
+  .image {
+    width: 158px;
+    height: 158px;
+  }
 }
 
-.text-char-text {
-  font-size: 140px;
-  font-weight: 400;
-  vertical-align: middle;
-}
+.info-wrapper {
+  margin-left: 50px;
 
-.text-emoji {
-  font-weight: 600;
-  width: 168px;
-  height: 168px;
+  .text-char {
+    display: inline-block;
+    //width: 120px;
+    font-family: 'Courier New', sans-serif;
+    line-height: 1;
+  }
+
+  .text-char-text {
+    font-size: 120px;
+    color: #333;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+
+  .text-ch {
+    display: inline-block;
+    margin-left: 30px;
+    //width: 50px;
+    line-height: 1;
+  }
+
+  .text-ch-text {
+    font-family: 'kai', sans-serif;
+    font-size: 32px;
+    color: #333;
+    vertical-align: middle;
+  }
 }

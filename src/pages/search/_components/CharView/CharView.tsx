@@ -17,15 +17,22 @@ export const CharView = (props: IProps) => {
     <View className={style['wrapper']}>
       {props.selectedChar && (
         <View className={style['view-wrapper']}>
-          <View className={style['text-char']}>
-            <Text className={style['text-char-text']}>{props.selectedChar.char}</Text>
+          <View className={style['image-wrapper']}>
+            <Image
+              className={style['image']}
+              src={imageConfig[`img${props.selectedChar.path}`]}
+              // width={64}
+              // height={64}
+            />
           </View>
-          <Image
-            className={style['text-emoji']}
-            src={imageConfig[`img${props.selectedChar.path}`]}
-            // width={64}
-            // height={64}
-          />
+          <View className={style['info-wrapper']}>
+            <View className={style['text-char']}>
+              <Text className={style['text-char-text']}>{props.selectedChar.char}</Text>
+            </View>
+            <View className={style['text-ch']}>
+              <Text className={style['text-ch-text']}>{props.selectedChar.ch}</Text>
+            </View>
+          </View>
         </View>
       )}
     </View>

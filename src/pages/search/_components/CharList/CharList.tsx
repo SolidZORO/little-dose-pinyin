@@ -10,11 +10,11 @@ import style from './style.less';
 interface IProps {
   rowQuntity: any;
   charList: IChar[][];
+  selectedChar?: IChar;
   onSelectedCharCallback?: (i: IChar) => void;
 }
 
 export const CharList = (props: IProps) => {
-  const [selectedChar, setSelectedChar] = useState<IChar>();
   const [playerCtx] = useState<any>(Taro.createInnerAudioContext());
   const [playerStatus, setPlayerStatus] = useState<boolean>(false);
 
@@ -38,7 +38,7 @@ export const CharList = (props: IProps) => {
 
   const onSelectedCharCallback = (i: IChar) => {
     player(voiceConfig[`vc${i.path}`]);
-    setSelectedChar(i);
+    // setSelectedChar(i);
 
     if (props.onSelectedCharCallback) {
       props.onSelectedCharCallback(i);
@@ -59,7 +59,7 @@ export const CharList = (props: IProps) => {
                     className={cx(style['char-item'], {
                       [style['char-item--row-quntity-6']]: props.rowQuntity === 6,
                       [style['char-item--row-quntity-8']]: props.rowQuntity === 8,
-                      [style['char-item--active']]: selectedChar && i.char === selectedChar.char,
+                      [style['char-item--active']]: props.selectedChar && i.char === props.selectedChar.char,
                     })}
                     onClick={() => onSelectedCharCallback(i)}
                   >

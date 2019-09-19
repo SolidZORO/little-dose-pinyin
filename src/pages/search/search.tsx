@@ -13,13 +13,34 @@ export default () => {
 
   useEffect(() => {
     Taro.setNavigationBarTitle({ title: 'pinyinx' }).then();
+
+    setSelectedChar(charConfig.sm[1][4]);
   }, []);
 
   return (
     <View className={style['wrapper']}>
       <CharView selectedChar={selectedChar} />
-      <CharList charList={charConfig.shengmu} rowQuntity={8} onSelectedCharCallback={setSelectedChar} />
-      <CharList charList={charConfig.yunmu} rowQuntity={6} onSelectedCharCallback={setSelectedChar} />
+
+      <CharList
+        charList={charConfig.sm}
+        rowQuntity={8}
+        selectedChar={selectedChar}
+        onSelectedCharCallback={setSelectedChar}
+      />
+
+      <CharList
+        charList={charConfig.ym}
+        rowQuntity={6}
+        selectedChar={selectedChar}
+        onSelectedCharCallback={setSelectedChar}
+      />
+
+      <CharList
+        charList={charConfig.zt}
+        rowQuntity={6}
+        selectedChar={selectedChar}
+        onSelectedCharCallback={setSelectedChar}
+      />
     </View>
   );
 };
