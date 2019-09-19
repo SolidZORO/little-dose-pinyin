@@ -3,8 +3,8 @@ import { View } from '@tarojs/components';
 import { charConfig } from '@/configs';
 import { IChar } from '@/interfaces';
 
-import { CharList } from './_components/CharList/CharList';
-import { CharView } from './_components/CharView/CharView';
+import { CharList } from '@/components/CharList';
+import { CharBanner } from '@/components/CharBanner';
 
 import style from './style.less';
 
@@ -19,7 +19,7 @@ export default () => {
 
   return (
     <View className={style['wrapper']}>
-      <CharView selectedChar={selectedChar} />
+      <CharBanner selectedChar={selectedChar} />
 
       <CharList
         charList={charConfig.sm}

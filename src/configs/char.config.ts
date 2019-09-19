@@ -1,7 +1,7 @@
 import { IChar } from '../interfaces';
 
 // prettier-ignore
-export const charConfig: { [k: string]: IChar[][] } = {
+export const charConfig: { sm: IChar[][]; ym: IChar[][];  zt: IChar[][] } = {
   sm: [
     [
       { char: 'b', ch: '播', path: 'b' },

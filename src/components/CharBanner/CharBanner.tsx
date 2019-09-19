@@ -10,7 +10,7 @@ interface IProps {
   selectedChar?: IChar;
 }
 
-export const CharView = (props: IProps) => {
+export const CharBanner = (props: IProps) => {
   console.log(props.selectedChar && imageConfig[props.selectedChar.path]);
 
   return (
