@@ -21,6 +21,7 @@ import imgc from '@/assets/images/c.svg';
 import imgs from '@/assets/images/s.svg';
 import imgy from '@/assets/images/y.svg';
 import imgw from '@/assets/images/w.svg';
+//
 import imga from '@/assets/images/a.svg';
 import imgo from '@/assets/images/o.svg';
 import imge from '@/assets/images/e.svg';
@@ -45,6 +46,8 @@ import imgang from '@/assets/images/ang.svg';
 import imgeng from '@/assets/images/eng.svg';
 import imging from '@/assets/images/ing.svg';
 import imgong from '@/assets/images/ong.svg';
+//
+import imgyuan from '@/assets/images/yuan.svg';
 
 export const imageConfig = {
   imgb,
@@ -70,6 +73,7 @@ export const imageConfig = {
   imgs,
   imgy,
   imgw,
+  //
   imga,
   imgo,
   imge,
@@ -94,4 +98,6 @@ export const imageConfig = {
   imgeng,
   imging,
   imgong,
+  //
+  imgyuan,
 };

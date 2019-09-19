@@ -38,7 +38,6 @@ export const CharList = (props: IProps) => {
 
   const onSelectedCharCallback = (i: IChar) => {
     player(voiceConfig[`vc${i.path}`]);
-    // setSelectedChar(i);
 
     if (props.onSelectedCharCallback) {
       props.onSelectedCharCallback(i);

@@ -4,4 +4,5 @@ export interface IChar {
   // text: string;
   ch: string;
   path: string;
+  img?: string;
 }
