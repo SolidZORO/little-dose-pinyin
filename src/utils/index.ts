@@ -1,1 +1,1 @@
-export { imageUtil } from './image.util';
+export { charUtil } from './char.util';

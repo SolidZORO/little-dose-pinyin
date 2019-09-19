@@ -8,6 +8,8 @@ export const charConfig: { sm: IChar[][]; ym: IChar[][];  zt: IChar[][] } = {
       { char: 'p', ch: '坡', path: 'p' },
       { char: 'm', ch: '摸', path: 'm' },
       { char: 'f', ch: '佛', path: 'f' },
+    ],
+    [
       { char: 'd', ch: '得', path: 'd' },
       { char: 't', ch: '特', path: 't' },
       { char: 'n', ch: '呢', path: 'n' },

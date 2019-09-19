@@ -1,5 +1,5 @@
 import Taro, { useEffect, useState } from '@tarojs/taro';
-import { View } from '@tarojs/components';
+import { View, Navigator, Button } from '@tarojs/components';
 import { charConfig } from '@/configs';
 import { IChar } from '@/interfaces';
 
@@ -14,33 +14,38 @@ export default () => {
   useEffect(() => {
     Taro.setNavigationBarTitle({ title: 'pinyinx' }).then();
 
-    setSelectedChar(charConfig.sm[1][4]);
+    setSelectedChar(charConfig.sm[0][0]);
   }, []);
 
   return (
     <View className={style['wrapper']}>
       <CharBanner selectedChar={selectedChar} />
 
-      <CharList
-        charList={charConfig.sm}
-        rowQuntity={8}
-        selectedChar={selectedChar}
-        onSelectedCharCallback={setSelectedChar}
-      />
+      <View className={style['wrapper-scroll']}>
+        <CharList
+          charTitle="声母"
+          charList={charConfig.sm}
+          rowQuntity={6}
+          selectedChar={selectedChar}
+          onSelectedCharCallback={setSelectedChar}
+        />
 
-      <CharList
-        charList={charConfig.ym}
-        rowQuntity={6}
-        selectedChar={selectedChar}
-        onSelectedCharCallback={setSelectedChar}
-      />
+        <CharList
+          charTitle="韵母"
+          charList={charConfig.ym}
+          rowQuntity={6}
+          selectedChar={selectedChar}
+          onSelectedCharCallback={setSelectedChar}
+        />
 
-      <CharList
-        charList={charConfig.zt}
-        rowQuntity={6}
-        selectedChar={selectedChar}
-        onSelectedCharCallback={setSelectedChar}
-      />
+        <CharList
+          charTitle="整体认读"
+          charList={charConfig.zt}
+          rowQuntity={6}
+          selectedChar={selectedChar}
+          onSelectedCharCallback={setSelectedChar}
+        />
+      </View>
     </View>
   );
 };

@@ -1,14 +1,48 @@
 @import '../../styles/variables.less';
 
 .wrapper {
-  height: 260px;
+  height: @char-banner-height;
   display: flex;
   flex: 1;
   justify-content: center;
   align-items: center;
+  //
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: @page-wrapper-bg-cloor;
+  z-index: 99;
+  box-shadow: -5px 3px 6px 0 #dad0d0;
+}
+
+.switch-page {
+  font-size: 0;
+  line-height: 1;
+  display: inline-block;
+  z-index: 11;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.icon-replay {
+  position: absolute;
+  bottom: 0;
+  right: 35px;
+}
+
+.icon-replay-image {
+  width: 32px;
+  height: 32px;
+  opacity: 0.7;
+}
+
+.icon-replay-image--action {
+  opacity: 0.2;
 }
 
 .view-wrapper {
+  position: relative;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -40,7 +74,7 @@
   .text-char {
     display: inline-block;
     //width: 120px;
-    font-family: 'Courier New', sans-serif;
+    font-family: @char-family;
     line-height: 1;
   }
 

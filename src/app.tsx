@@ -10,7 +10,7 @@ class App extends Component {
   config: Config = {
     // prettier-ignore
     pages: [
-      // 'pages/study/study',
+      'pages/study/study',
       'pages/game/game',
     ],
     window: {

@@ -1,5 +1,5 @@
 import Taro, { useState } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
+import { View } from '@tarojs/components';
 import cx from 'classnames';
 
 import { IChar } from '@/interfaces';
@@ -10,12 +10,15 @@ import style from './style.less';
 interface IProps {
   rowQuntity: any;
   charList: IChar[][];
+  charTitle: string;
   selectedChar?: IChar;
+  disablePlayer?: boolean;
   onSelectedCharCallback?: (i: IChar) => void;
 }
 
+const playerCtx = Taro.createInnerAudioContext();
+
 export const CharList = (props: IProps) => {
-  const [playerCtx] = useState<any>(Taro.createInnerAudioContext());
   const [playerStatus, setPlayerStatus] = useState<boolean>(false);
 
   const player = (src: string) => {
@@ -37,7 +40,9 @@ export const CharList = (props: IProps) => {
   };
 
   const onSelectedCharCallback = (i: IChar) => {
-    player(voiceConfig[`vc${i.path}`]);
+    if (!props.disablePlayer) {
+      player(voiceConfig[`vc${i.path}`]);
+    }
 
     if (props.onSelectedCharCallback) {
       props.onSelectedCharCallback(i);
@@ -46,6 +51,8 @@ export const CharList = (props: IProps) => {
 
   return (
     <View className={style['wrapper']}>
+      <View className={style['char-title']}>{props.charTitle}</View>
+
       {props.charList &&
         props.charList.map((rows, key) => {
           return (
@@ -62,7 +69,7 @@ export const CharList = (props: IProps) => {
                     })}
                     onClick={() => onSelectedCharCallback(i)}
                   >
-                    <Text className={style['char-item-text']}>{i.char}</Text>
+                    {i.char}
                   </View>
                 ))}
             </View>
