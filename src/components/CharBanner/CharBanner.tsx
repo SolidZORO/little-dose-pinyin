@@ -18,8 +18,6 @@ interface IProps {
 const playerCtx = Taro.createInnerAudioContext();
 
 export const CharBanner = (props: IProps) => {
-  console.log(props.selectedChar && imageConfig[props.selectedChar.path]);
-
   const [playerStatus, setPlayerStatus] = useState<boolean>(false);
 
   const player = (src: string) => {
@@ -40,7 +38,7 @@ export const CharBanner = (props: IProps) => {
     });
   };
 
-  const rePlaye = () => {
+  const playChar = () => {
     if (props.selectedChar) {
       player(voiceConfig[`vc${props.selectedChar.path}`]);
     }
@@ -48,11 +46,11 @@ export const CharBanner = (props: IProps) => {
 
   return (
     <View className={style['wrapper']}>
-      <NavigatorButton title="测试" url="/pages/exam/exam" image={iconexam} />
+      <NavigatorButton title="去测试" url="/pages/exam/exam" image={iconexam} />
 
       {props.selectedChar && (
-        <View className={style['view-wrapper']} onClick={() => rePlaye()}>
-          <View className={style['icon-replay']} onClick={() => rePlaye()}>
+        <View className={style['view-wrapper']} onClick={() => playChar()}>
+          <View className={style['icon-replay']}>
             <Image
               className={cx(style['icon-replay-image'], {
                 [style['icon-replay-image--action']]: playerStatus,

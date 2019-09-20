@@ -13,6 +13,7 @@ interface IProps {
   charTitle: string;
   selectedChar?: IChar;
   disablePlayer?: boolean;
+  disableClick?: boolean;
   onSelectedCharCallback?: (i: IChar) => void;
 }
 
@@ -52,29 +53,34 @@ export const CharList = (props: IProps) => {
   return (
     <View className={style['wrapper']}>
       <View className={style['char-title']}>{props.charTitle}</View>
-
-      {props.charList &&
-        props.charList.map((rows, key) => {
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <View key={`rows-${key}`} className={style['char-list']}>
-              {rows &&
-                rows.map(i => (
-                  <View
-                    key={i.char}
-                    className={cx(style['char-item'], {
-                      [style['char-item--row-quntity-6']]: props.rowQuntity === 6,
-                      [style['char-item--row-quntity-8']]: props.rowQuntity === 8,
-                      [style['char-item--active']]: props.selectedChar && i.char === props.selectedChar.char,
-                    })}
-                    onClick={() => onSelectedCharCallback(i)}
-                  >
-                    {i.char}
-                  </View>
-                ))}
-            </View>
-          );
+      <View
+        className={cx(style['char-keyboard'], {
+          [style['char-keyboard--disable']]: props.disableClick,
         })}
+      >
+        {props.charList &&
+          props.charList.map((rows, key) => {
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <View key={`rows-${key}`} className={style['char-list']}>
+                {rows &&
+                  rows.map(i => (
+                    <View
+                      key={i.char}
+                      className={cx(style['char-item'], {
+                        [style['char-item--row-quntity-6']]: props.rowQuntity === 6,
+                        [style['char-item--row-quntity-8']]: props.rowQuntity === 8,
+                        [style['char-item--active']]: props.selectedChar && i.char === props.selectedChar.char,
+                      })}
+                      onClick={() => !props.disableClick && onSelectedCharCallback(i)}
+                    >
+                      {i.char}
+                    </View>
+                  ))}
+              </View>
+            );
+          })}
+      </View>
     </View>
   );
 };

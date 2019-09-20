@@ -11,11 +11,10 @@ import style from './style.less';
 export default () => {
   const [selectedChar, setSelectedChar] = useState<IChar>();
   const [selectedHash, setSelectedHash] = useState<number>();
+  const [startStatus, setStartStatus] = useState<boolean>(false);
 
   useEffect(() => {
-    Taro.setNavigationBarTitle({ title: 'exam' }).then();
-
-    // setSelectedChar(charConfig.sm[1][4]);
+    Taro.setNavigationBarTitle({ title: '测试' }).then();
   }, []);
 
   const onSetSelectedChar = (data: IChar) => {
@@ -23,9 +22,26 @@ export default () => {
     setSelectedHash(new Date().getTime());
   };
 
+  const onStatarCallback = (status: boolean) => {
+    setStartStatus(status);
+    setSelectedHash(new Date().getTime());
+  };
+
+  const onReStatarCallback = () => {
+    setStartStatus(true);
+    setSelectedHash(new Date().getTime());
+    setSelectedChar(undefined);
+  };
+
   return (
     <View className={style['wrapper']}>
-      <ExamBanner selectedChar={selectedChar} selectedHash={selectedHash} />
+      <ExamBanner
+        selectedChar={selectedChar}
+        selectedHash={selectedHash}
+        onStatarCallback={onStatarCallback}
+        onReStatarCallback={onReStatarCallback}
+        startStatus={startStatus}
+      />
 
       <View className={style['wrapper-scroll']}>
         <CharList
@@ -35,6 +51,7 @@ export default () => {
           selectedChar={selectedChar}
           onSelectedCharCallback={onSetSelectedChar}
           disablePlayer
+          disableClick={!startStatus}
         />
 
         <CharList
@@ -44,6 +61,7 @@ export default () => {
           selectedChar={selectedChar}
           onSelectedCharCallback={onSetSelectedChar}
           disablePlayer
+          disableClick={!startStatus}
         />
       </View>
     </View>

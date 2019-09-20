@@ -1,34 +1,49 @@
 import Taro, { useState, useEffect } from '@tarojs/taro';
-import { View, Text, Button, Navigator } from '@tarojs/components';
+import { View, Text, Button, Navigator, Progress } from '@tarojs/components';
 
 import { IChar } from '@/interfaces';
 import { charUtil } from '@/utils';
-import { charConfig, voiceConfig } from '@/configs';
+import { charConfig, voiceConfig, sfxConfig } from '@/configs';
 import { NavigatorButton } from '@/components/NavigatorButton';
 
 import iconstudy from '@/assets/icons/study.svg';
+import iconright from '@/assets/icons/right.svg';
+import iconwrong from '@/assets/icons/wrong.svg';
 
 import style from './style.less';
 
 interface IProps {
   selectedChar?: IChar;
   selectedHash?: number;
+  startStatus?: boolean;
+  onStatarCallback: (b: boolean) => void;
+  onReStatarCallback: () => void;
 }
 
-const mockData = [
-  [{ char: 'b', ch: '播', path: 'b' }, { char: 'p', ch: '坡', path: 'p' }, { char: 'm', ch: '摸', path: 'm' }],
-];
+// const testData = [
+//   [{ char: 'b', ch: '播', path: 'b' }, { char: 'p', ch: '坡', path: 'p' }, { char: 'm', ch: '摸', path: 'm' }],
+// ];
+
+const testData = [[{ char: 'b', ch: '播', path: 'b' }, { char: 'p', ch: '坡', path: 'p' }]];
 
 const playerCtx = Taro.createInnerAudioContext();
 
 export const ExamBanner = (props: IProps) => {
-  // const [randomCharList, setRandomCharList] = useState<string[]>(charUtil.randomChar(charConfig.sm));
-  const [randomCharList, setRandomCharList] = useState<string[]>(charUtil.randomChar(mockData));
-  const [currentCharLength, setCurrentCharLength] = useState<number>(0);
-  const [totalCharLength, setTotalCharLength] = useState<number>(0);
-  const [rightLength, setRightLength] = useState<number>(0);
+  const [sourceChars, setSourceChars] = useState<string[]>(charUtil.randomChar(testData));
+  // const [sourceChars, setSourceChars] = useState<string[]>(charUtil.randomChar(charConfig.sm));
+  const [sourceLength, setSourceLength] = useState<number>(0);
+
+  // 记录所有输入原始数据，用于排行榜，以及分析错误
+  const [inputChars, setInputChars] = useState<string[]>([]);
+  const [rightChars, setRightChars] = useState<string[]>([]);
+  const [wrongChars, setWrongChars] = useState<string[]>([]);
 
   const [playerStatus, setPlayerStatus] = useState<boolean>(false);
+
+  const onInitSourceChars = (srcChars: string[]) => {
+    setSourceChars(srcChars);
+    setSourceLength(srcChars.length);
+  };
 
   const player = (src: string) => {
     if (playerStatus) {
@@ -48,68 +63,108 @@ export const ExamBanner = (props: IProps) => {
     });
   };
 
-  const rePlaye = () => {
-    player(voiceConfig[`vc${randomCharList[0]}`]);
+  const playChar = () => {
+    player(voiceConfig[`vc${sourceChars[0]}`]);
+  };
+
+  const calcPercent = (cl, sl): number => {
+    // sourceChars.length, sourceLength
+    return Number((100 - (cl / sl) * 100).toFixed(1));
+  };
+
+  const calcScore = (rl, sl): number => {
+    // rightChars.length, sourceLength
+    const reuslt = Math.floor(Number((rl / sl) * 100));
+
+    return !Number.isNaN(reuslt) ? reuslt : 0;
+  };
+
+  const onClearAllState = () => {
+    setInputChars([]);
+    setRightChars([]);
+    setWrongChars([]);
+  };
+
+  const onStart = () => {
+    props.onStatarCallback(true);
+
+    playChar();
+  };
+
+  const onRestart = () => {
+    props.onReStatarCallback();
+
+    // here do not use `useState`
+    const newSourceChars = charUtil.randomChar(testData);
+
+    onClearAllState();
+    onInitSourceChars(newSourceChars);
+
+    player(voiceConfig[`vc${newSourceChars[0]}`]);
   };
 
   useEffect(() => {
-    setRandomCharList(randomCharList);
-    setTotalCharLength(randomCharList.length);
-    setCurrentCharLength(randomCharList.length);
-
-    player(voiceConfig[`vc${randomCharList[0]}`]);
+    onInitSourceChars(charUtil.randomChar(testData));
   }, []);
 
   useEffect(() => {
-    if (!props.selectedChar || randomCharList.length === 0) {
+    if (!props.selectedChar || sourceChars.length === 0) {
       return;
     }
 
-    if (props.selectedChar.char === randomCharList[0]) {
-      console.log('😄 答对对啦！');
-      setRightLength(rightLength + 1);
+    setInputChars(inputChars.concat(props.selectedChar.char));
+
+    if (props.selectedChar.char === sourceChars[0]) {
+      player(sfxConfig.sfxright);
+
+      Taro.showToast({ image: iconright, title: '', duration: 800 }).then();
+      setRightChars(rightChars.concat(sourceChars[0]));
     } else {
-      console.log('❌！');
+      player(sfxConfig.sfxwrong);
+
+      Taro.showToast({ image: iconwrong, title: '', duration: 800 }).then();
+      setWrongChars(wrongChars.concat(sourceChars[0]));
     }
 
-    randomCharList.shift();
-    setRandomCharList(randomCharList);
-    setCurrentCharLength(randomCharList.length);
+    sourceChars.shift();
+    setSourceChars(sourceChars);
 
-    if (randomCharList.length) {
-      player(voiceConfig[`vc${randomCharList[0]}`]);
+    if (sourceChars.length) {
+      setTimeout(() => playChar(), 800);
+    } else {
+      props.onStatarCallback(false);
     }
   }, [props.selectedHash]);
 
   return (
     <View className={style['wrapper']}>
-      <NavigatorButton title="学习" url="/pages/study/study" image={iconstudy} />
+      <NavigatorButton title="去学习" url="/pages/study/study" image={iconstudy} />
 
-      <View className={style['view-wrapper']}>
-        <View className={style['random-list']}>
-          {randomCharList.length === 0 ? (
-            <View>
-              <Text className={style['random-list-text']}>分数：{(rightLength / totalCharLength) * 100}</Text>
+      <View className={style['main-wrapper']}>
+        {!props.startStatus && (
+          <View onClick={onStart}>
+            <Text>开始咯～</Text>
+          </View>
+        )}
+        {props.startStatus && inputChars.length !== sourceLength && (
+          <View className={style['progress-bar']}>
+            <View className={style['progress-total']}>
+              {inputChars.length} / {sourceLength}
             </View>
-          ) : (
-            <View>
-              <Text className={style['random-list-text']}>答对：{rightLength}</Text>
-              <Text className={style['random-list-text']}>
-                {' '}
-                / 当前：{currentCharLength || '游戏结束'} / 总共：{totalCharLength}
-              </Text>
-            </View>
-          )}
-        </View>
-
-        <View className={style['random-list']}>
-          <Button onClick={() => rePlaye()}>重读</Button>
-          <Text className={style['random-list-text']}>{JSON.stringify(randomCharList)}</Text>
-        </View>
-
-        <View className={style['selected-item']}>
-          <Text className={style['selected-item-text']}>{props.selectedChar && props.selectedChar.char}</Text>
-        </View>
+            <Progress
+              percent={calcPercent(sourceChars.length, sourceLength)}
+              active
+              strokeWidth={4}
+              className={style['progress-bar']}
+            />
+          </View>
+        )}
+        {inputChars.length === sourceLength && (
+          <View onClick={onRestart}>
+            <Text>游戏结束 {calcScore(rightChars.length, sourceLength)} 分</Text>
+            <Text>重来</Text>
+          </View>
+        )}
       </View>
     </View>
   );

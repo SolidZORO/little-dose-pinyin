@@ -10,8 +10,8 @@ class App extends Component {
   config: Config = {
     // prettier-ignore
     pages: [
-      'pages/study/study',
       'pages/exam/exam',
+      'pages/study/study',
     ],
     window: {
       backgroundTextStyle: 'light',
