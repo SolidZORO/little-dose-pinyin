@@ -4,7 +4,7 @@ import { charConfig } from '@/configs';
 import { IChar } from '@/interfaces';
 
 import { CharList } from '@/components/CharList';
-import { GameBanner } from '@/components/GameBanner';
+import { ExamBanner } from '@/components/ExamBanner';
 
 import style from './style.less';
 
@@ -13,7 +13,7 @@ export default () => {
   const [selectedHash, setSelectedHash] = useState<number>();
 
   useEffect(() => {
-    Taro.setNavigationBarTitle({ title: 'Game' }).then();
+    Taro.setNavigationBarTitle({ title: 'exam' }).then();
 
     // setSelectedChar(charConfig.sm[1][4]);
   }, []);
@@ -25,7 +25,7 @@ export default () => {
 
   return (
     <View className={style['wrapper']}>
-      <GameBanner selectedChar={selectedChar} selectedHash={selectedHash} />
+      <ExamBanner selectedChar={selectedChar} selectedHash={selectedHash} />
 
       <View className={style['wrapper-scroll']}>
         <CharList

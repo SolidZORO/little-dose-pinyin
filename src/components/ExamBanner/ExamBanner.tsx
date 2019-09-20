@@ -4,6 +4,9 @@ import { View, Text, Button, Navigator } from '@tarojs/components';
 import { IChar } from '@/interfaces';
 import { charUtil } from '@/utils';
 import { charConfig, voiceConfig } from '@/configs';
+import { NavigatorButton } from '@/components/NavigatorButton';
+
+import iconstudy from '@/assets/icons/study.svg';
 
 import style from './style.less';
 
@@ -18,7 +21,7 @@ const mockData = [
 
 const playerCtx = Taro.createInnerAudioContext();
 
-export const GameBanner = (props: IProps) => {
+export const ExamBanner = (props: IProps) => {
   // const [randomCharList, setRandomCharList] = useState<string[]>(charUtil.randomChar(charConfig.sm));
   const [randomCharList, setRandomCharList] = useState<string[]>(charUtil.randomChar(mockData));
   const [currentCharLength, setCurrentCharLength] = useState<number>(0);
@@ -80,13 +83,7 @@ export const GameBanner = (props: IProps) => {
 
   return (
     <View className={style['wrapper']}>
-      <View className={style['switch-page']}>
-        <Navigator url="/pages/study/study">
-          <Button size="mini" type="primary">
-            学习
-          </Button>
-        </Navigator>
-      </View>
+      <NavigatorButton title="学习" url="/pages/study/study" image={iconstudy} />
 
       <View className={style['view-wrapper']}>
         <View className={style['random-list']}>

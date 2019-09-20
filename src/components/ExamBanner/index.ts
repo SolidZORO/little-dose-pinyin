@@ -1,0 +1,1 @@
+export { ExamBanner } from './ExamBanner';

@@ -4,8 +4,10 @@ import cx from 'classnames';
 
 import { IChar } from '@/interfaces';
 import { imageConfig, voiceConfig } from '@/configs';
+import { NavigatorButton } from '@/components/NavigatorButton';
 
 import iconreplay from '@/assets/icons/replay.svg';
+import iconexam from '@/assets/icons/exam.svg';
 
 import style from './style.less';
 
@@ -46,13 +48,7 @@ export const CharBanner = (props: IProps) => {
 
   return (
     <View className={style['wrapper']}>
-      <View className={style['switch-page']}>
-        <Navigator url="/pages/game/game">
-          <Button size="mini" type="primary">
-            游戏
-          </Button>
-        </Navigator>
-      </View>
+      <NavigatorButton title="测试" url="/pages/exam/exam" image={iconexam} />
 
       {props.selectedChar && (
         <View className={style['view-wrapper']} onClick={() => rePlaye()}>

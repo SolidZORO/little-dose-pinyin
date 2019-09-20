@@ -11,11 +11,11 @@ class App extends Component {
     // prettier-ignore
     pages: [
       'pages/study/study',
-      'pages/game/game',
+      'pages/exam/exam',
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
+      navigationBarBackgroundColor: '#f7f6e8',
       navigationBarTitleText: 'pinyin',
       navigationBarTextStyle: 'black',
     },
