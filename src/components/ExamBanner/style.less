@@ -24,12 +24,158 @@
   background-color: transparent;
 }
 
-.progress-bar {
-  text-align: center;
-  width: 90%;
-  display: block;
+.start-exam-wrapper {
 }
 
-.progress-total {
-  font-size: 28px;
+.start-exam-button {
+  .button--primary();
+
+  @font-size: 38px;
+
+  padding: 20px 50px;
+  margin-top: 60px;
+
+  .start-exam-button-image {
+    @image-size: @font-size + 4;
+
+    width: @image-size;
+    height: @image-size;
+  }
+
+  .start-exam-button-text {
+    padding-left: 10px;
+    font-size: @font-size;
+    font-weight: 400;
+  }
+}
+
+.select-exam-range-wrapper {
+  @size: 30px;
+
+  text-align: center;
+  margin-top: 10px;
+
+  .select-exam-range-label {
+    margin: 0 15px;
+  }
+
+  .select-exam-range-checkbox {
+    width: @size;
+    height: @size;
+    vertical-align: 5px;
+  }
+
+  .select-exam-range-checkbox-text {
+    font-size: @size;
+    padding-left: 8px;
+    color: #777;
+  }
+}
+
+.start-exam-button--disable {
+  opacity: 0.5;
+}
+
+.progress-wrapper {
+  margin-top: 30px;
+  width: 100%;
+
+  .progress-bar {
+    text-align: center;
+    margin: 25px auto 0 auto;
+    line-height: 1;
+    width: 90%;
+    display: block;
+    border-radius: 100px;
+
+    :global {
+      .weui-progress__bar,
+      .weui-progress__inner-bar {
+        border-radius: 99px !important;
+      }
+    }
+  }
+
+  .progress-info {
+    @font-size: 42px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    font-size: @font-size;
+    margin-bottom: 20px;
+
+    .progress-info-image {
+      @image-size: @font-size;
+
+      padding: 0 20px 3px 0;
+      width: @image-size;
+      height: @image-size;
+    }
+
+    .progress-info-text {
+      line-height: 1;
+      font-size: @font-size;
+      font-family: @number-family;
+    }
+  }
+}
+
+.exit-exam-button {
+  @font-size: 22px;
+  @bg-color: #ddd;
+
+  display: table;
+  height: @font-size;
+  line-height: 1px;
+  border-radius: 100px;
+  border: 2px solid @bg-color;
+  padding: 5px 30px;
+  margin: 25px auto;
+
+  .exit-exam-button-text {
+    line-height: 1;
+    color: darken(@bg-color, 10%);
+    font-size: @font-size;
+    font-weight: 400;
+  }
+
+  &:active {
+    border-color: darken(@bg-color, 8%);
+
+    .exit-exam-button-text {
+      color: darken(@bg-color, 20%);
+    }
+  }
+}
+
+.modal-wrapper {
+  background: #0008;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  overflow: auto;
+  outline: 0;
+
+  &:before {
+    display: inline-block;
+    width: 0;
+    height: 100%;
+    vertical-align: middle;
+    content: '';
+  }
+
+  .modal-inner {
+    text-align: center;
+    background-color: #fff;
+    top: 0;
+    display: inline-block;
+    vertical-align: middle;
+    width: 90%;
+    margin: 5%;
+  }
 }

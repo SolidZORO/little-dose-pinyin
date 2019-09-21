@@ -1,0 +1,31 @@
+@import '../../styles/variables.less';
+
+@char-item-height: 36px;
+
+.char-item {
+  .button();
+
+  margin: 6px 1.5%;
+  font-weight: 800;
+  border: 2px solid #fff;
+  font-size: @char-item-height;
+  font-family: @char-family;
+  padding: 12px 0;
+}
+
+.char-item-text {
+}
+
+.char-item--row-quntity-8 {
+  width: 8.9%;
+}
+
+.char-item--row-quntity-6 {
+  width: 13%;
+}
+
+.char-item--active {
+  color: #fff;
+  background-color: darken(@primary-color, 2%);
+  border: 2px solid darken(@primary-color, 4%);
+}

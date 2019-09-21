@@ -9,9 +9,11 @@ import { ExamBanner } from '@/components/ExamBanner';
 import style from './style.less';
 
 export default () => {
+  const [examRange, setExamRange] = useState<string[]>(['sm', 'ym']);
   const [selectedChar, setSelectedChar] = useState<IChar>();
   const [selectedHash, setSelectedHash] = useState<number>();
   const [startStatus, setStartStatus] = useState<boolean>(false);
+  // const [startStatus, setStartStatus] = useState<boolean>(true);
 
   useEffect(() => {
     Taro.setNavigationBarTitle({ title: '测试' }).then();
@@ -33,36 +35,47 @@ export default () => {
     setSelectedChar(undefined);
   };
 
+  const onChangeExamRangeCallback = (arr: string[]) => {
+    console.log(arr);
+    setExamRange(arr);
+  };
+
   return (
     <View className={style['wrapper']}>
       <ExamBanner
+        examRange={examRange}
         selectedChar={selectedChar}
         selectedHash={selectedHash}
         onStatarCallback={onStatarCallback}
         onReStatarCallback={onReStatarCallback}
+        onChangeExamRangeCallback={onChangeExamRangeCallback}
         startStatus={startStatus}
       />
 
       <View className={style['wrapper-scroll']}>
-        <CharList
-          charTitle="声母"
-          charList={charConfig.sm}
-          rowQuntity={6}
-          selectedChar={selectedChar}
-          onSelectedCharCallback={onSetSelectedChar}
-          disablePlayer
-          disableClick={!startStatus}
-        />
+        {examRange.includes('sm') && (
+          <CharList
+            charTitle="声母"
+            charList={charConfig.sm}
+            rowQuntity={6}
+            selectedChar={selectedChar}
+            onSelectedCharCallback={onSetSelectedChar}
+            disablePlayer
+            disableClick={!startStatus}
+          />
+        )}
 
-        <CharList
-          charTitle="韵母"
-          charList={charConfig.ym}
-          rowQuntity={6}
-          selectedChar={selectedChar}
-          onSelectedCharCallback={onSetSelectedChar}
-          disablePlayer
-          disableClick={!startStatus}
-        />
+        {examRange.includes('ym') && (
+          <CharList
+            charTitle="韵母"
+            charList={charConfig.ym}
+            rowQuntity={6}
+            selectedChar={selectedChar}
+            onSelectedCharCallback={onSetSelectedChar}
+            disablePlayer
+            disableClick={!startStatus}
+          />
+        )}
       </View>
     </View>
   );

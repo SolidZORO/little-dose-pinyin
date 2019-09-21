@@ -1,43 +1,36 @@
 @import '../../styles/variables.less';
 
-.switch-page {
-  font-size: 0;
-  line-height: 1;
+.wrapper {
   display: inline-block;
   z-index: 11;
   position: absolute;
-  //right: 15px;
-  left: 0;
-  top: 0;
+  left: 5px;
+  top: 5px;
 }
 
 .nav-wrapper {
   display: block;
   padding: 20px;
-  //background-color: #f00;
 }
 
 .nav-button {
-  display: flex;
-  flex: 1;
-  justify-content: center;
+  display: table;
   align-items: center;
   border: 2px solid #eee;
   box-shadow: -1px 5px 6px 0 #e2e2e2;
   background-color: transparent;
-  font-size: 18px;
+  font-size: 20px;
   border-radius: 100px;
-  padding: 4px 10px;
-  line-height: 1;
-}
+  padding: 4px 12px;
 
-.nav-button-image {
-  width: 26px;
-  height: 26px;
-}
+  .nav-button-image {
+    width: 26px;
+    height: 26px;
+    vertical-align: text-bottom;
+  }
 
-.nav-button-text {
-  padding: 0 6px 0 5px;
-  line-height: 1;
-  color: #555;
+  .nav-button-text {
+    padding: 0 6px 0 5px;
+    color: #555;
+  }
 }

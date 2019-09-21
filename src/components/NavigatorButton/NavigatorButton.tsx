@@ -11,8 +11,8 @@ interface IProps {
 
 export const NavigatorButton = (props: IProps) => {
   return (
-    <View className={style['switch-page']}>
-      <Navigator url={props.url} className={style['nav-wrapper']}>
+    <View className={style['wrapper']}>
+      <Navigator url={props.url} className={style['nav-wrapper']} type="switchTab">
         <View className={style['nav-button']}>
           <Image className={style['nav-button-image']} src={props.image} />
           <Text className={style['nav-button-text']}>{props.title}</Text>

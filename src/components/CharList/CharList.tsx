@@ -4,6 +4,7 @@ import cx from 'classnames';
 
 import { IChar } from '@/interfaces';
 import { voiceConfig } from '@/configs';
+import { CharItem } from '@/components/CharItem';
 
 import style from './style.less';
 
@@ -20,30 +21,30 @@ interface IProps {
 const playerCtx = Taro.createInnerAudioContext();
 
 export const CharList = (props: IProps) => {
-  const [playerStatus, setPlayerStatus] = useState<boolean>(false);
-
-  const player = (src: string) => {
-    if (playerStatus) {
-      playerCtx.stop();
-    }
-
-    playerCtx.autoplay = true;
-    playerCtx.loop = false;
-    playerCtx.src = src;
-
-    playerCtx.onPlay(() => {
-      setPlayerStatus(true);
-    });
-
-    playerCtx.onEnded(() => {
-      setPlayerStatus(false);
-    });
-  };
+  // const [playerStatus, setPlayerStatus] = useState<boolean>(false);
+  //
+  // const player = (src: string) => {
+  //   if (playerStatus) {
+  //     playerCtx.stop();
+  //   }
+  //
+  //   playerCtx.autoplay = true;
+  //   playerCtx.loop = false;
+  //   playerCtx.src = src;
+  //
+  //   playerCtx.onPlay(() => {
+  //     setPlayerStatus(true);
+  //   });
+  //
+  //   playerCtx.onEnded(() => {
+  //     setPlayerStatus(false);
+  //   });
+  // };
 
   const onSelectedCharCallback = (i: IChar) => {
-    if (!props.disablePlayer) {
-      player(voiceConfig[`vc${i.path}`]);
-    }
+    // if (!props.disablePlayer) {
+    //   player(voiceConfig[`vc${i.path}`]);
+    // }
 
     if (props.onSelectedCharCallback) {
       props.onSelectedCharCallback(i);
@@ -65,17 +66,15 @@ export const CharList = (props: IProps) => {
               <View key={`rows-${key}`} className={style['char-list']}>
                 {rows &&
                   rows.map(i => (
-                    <View
+                    <CharItem
                       key={i.char}
-                      className={cx(style['char-item'], {
-                        [style['char-item--row-quntity-6']]: props.rowQuntity === 6,
-                        [style['char-item--row-quntity-8']]: props.rowQuntity === 8,
-                        [style['char-item--active']]: props.selectedChar && i.char === props.selectedChar.char,
-                      })}
-                      onClick={() => !props.disableClick && onSelectedCharCallback(i)}
-                    >
-                      {i.char}
-                    </View>
+                      charItem={i}
+                      rowQuntity={props.rowQuntity}
+                      disablePlayer={props.disablePlayer}
+                      disableClick={props.disableClick}
+                      selectedChar={props.selectedChar}
+                      onSelectedCharCallback={() => !props.disableClick && onSelectedCharCallback(i)}
+                    />
                   ))}
               </View>
             );

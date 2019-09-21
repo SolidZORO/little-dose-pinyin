@@ -15,6 +15,16 @@
   box-shadow: -1px 2px 10px 0 #e4e4e4;
 }
 
+.view-wrapper {
+  position: relative;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  //border: 2px solid transparent;
+}
+
 .icon-replay {
   position: absolute;
   bottom: 0;
@@ -31,15 +41,6 @@
   opacity: 0.2;
 }
 
-.view-wrapper {
-  position: relative;
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-}
-
 .image-wrapper,
 .info-wrapper {
   text-align: center;
@@ -49,12 +50,14 @@
 }
 
 .image-wrapper {
+  @image-size: 158px;
+
   margin-left: 50px;
-  width: 158px;
+  width: @image-size;
 
   .image {
-    width: 158px;
-    height: 158px;
+    width: @image-size;
+    height: @image-size;
   }
 }
 
@@ -69,9 +72,9 @@
   }
 
   .text-char-text {
-    font-size: 140px;
+    font-size: 142px;
     color: #333;
-    font-weight: 600;
+    font-weight: 800;
     vertical-align: middle;
   }
 

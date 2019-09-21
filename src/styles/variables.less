@@ -12,14 +12,14 @@
 //
 // Iconfont
 //@iconfont-css-prefix: anticon;
-@font-family: 'Chinese Quote', 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
-  'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-  'Segoe UI Symbol';
+// prettier-ignore
+@font-family: 'Chinese Quote', 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 @code-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-@char-family: monospace;
+@char-family: 'NumberPro', monospace;
+@number-family: 'NumberPro', monospace;
 
 // Colors
-@primary-color: #6a3cff;
+@primary-color: #35cb67;
 @secondary-color: #1f8a85;
 @info-color: #1890ff;
 @success-color: #52c41a;
@@ -46,3 +46,38 @@
 @screen-lg: 992px; // PC
 @screen-xl: 1200px; // -
 @screen-xxl: 1600px; // -
+
+//
+// MIXIN
+// ------------------------------------------
+//
+.button {
+  @default-button-bg-color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  line-height: 1;
+  color: #333;
+  background-color: @default-button-bg-color;
+  box-shadow: -3px 5px 10px 0 #ccc;
+}
+
+.button--primary {
+  .button();
+
+  color: #fff;
+  background-color: @primary-color;
+  border: 2px solid darken(@primary-color, 2%);
+
+  &:hover {
+    background-color: darken(@primary-color, 4%);
+    border: 2px solid darken(@primary-color, 5%);
+  }
+
+  &:active {
+    background-color: darken(@primary-color, 7%);
+    border: 2px solid darken(@primary-color, 8%);
+  }
+}

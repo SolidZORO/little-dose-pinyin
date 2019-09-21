@@ -1,0 +1,1 @@
+export { CharItem } from './CharItem';

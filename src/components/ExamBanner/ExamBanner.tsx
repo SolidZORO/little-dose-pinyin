@@ -1,5 +1,6 @@
 import Taro, { useState, useEffect } from '@tarojs/taro';
-import { View, Text, Button, Navigator, Progress } from '@tarojs/components';
+import { View, Text, Button, Navigator, Progress, Image, Label, Checkbox, CheckboxGroup } from '@tarojs/components';
+import cx from 'classnames';
 
 import { IChar } from '@/interfaces';
 import { charUtil } from '@/utils';
@@ -7,10 +8,12 @@ import { charConfig, voiceConfig, sfxConfig } from '@/configs';
 import { NavigatorButton } from '@/components/NavigatorButton';
 
 import iconstudy from '@/assets/icons/study.svg';
-import iconright from '@/assets/icons/right.svg';
-import iconwrong from '@/assets/icons/wrong.svg';
+import iconexamwhire from '@/assets/icons/exam-white.svg';
+import iconrefreshwhite from '@/assets/icons/refresh-white.svg';
+import iconexamflag from '@/assets/icons/exam-flag.svg';
 
 import style from './style.less';
+import exam from '@/pages/exam/exam';
 
 interface IProps {
   selectedChar?: IChar;
@@ -18,19 +21,30 @@ interface IProps {
   startStatus?: boolean;
   onStatarCallback: (b: boolean) => void;
   onReStatarCallback: () => void;
+  examRange: string[];
+  onChangeExamRangeCallback: (arr: string[]) => void;
 }
-
-// const testData = [
-//   [{ char: 'b', ch: '播', path: 'b' }, { char: 'p', ch: '坡', path: 'p' }, { char: 'm', ch: '摸', path: 'm' }],
-// ];
 
 const testData = [[{ char: 'b', ch: '播', path: 'b' }, { char: 'p', ch: '坡', path: 'p' }]];
 
 const playerCtx = Taro.createInnerAudioContext();
 
 export const ExamBanner = (props: IProps) => {
-  const [sourceChars, setSourceChars] = useState<string[]>(charUtil.randomChar(testData));
-  // const [sourceChars, setSourceChars] = useState<string[]>(charUtil.randomChar(charConfig.sm));
+  const examRangeList: { text: string; value: string; checked: boolean }[] = [
+    {
+      text: '声母',
+      value: 'sm',
+      checked: props.examRange.includes('sm'),
+    },
+    {
+      text: '韵母',
+      value: 'ym',
+      checked: props.examRange.includes('ym'),
+    },
+  ];
+
+  // const [sourceChars, setSourceChars] = useState<string[]>(charUtil.randomChar(testData));
+  const [sourceChars, setSourceChars] = useState<string[]>([]);
   const [sourceLength, setSourceLength] = useState<number>(0);
 
   // 记录所有输入原始数据，用于排行榜，以及分析错误
@@ -39,11 +53,6 @@ export const ExamBanner = (props: IProps) => {
   const [wrongChars, setWrongChars] = useState<string[]>([]);
 
   const [playerStatus, setPlayerStatus] = useState<boolean>(false);
-
-  const onInitSourceChars = (srcChars: string[]) => {
-    setSourceChars(srcChars);
-    setSourceLength(srcChars.length);
-  };
 
   const player = (src: string) => {
     if (playerStatus) {
@@ -79,6 +88,47 @@ export const ExamBanner = (props: IProps) => {
     return !Number.isNaN(reuslt) ? reuslt : 0;
   };
 
+  const buildScoreModalContent = () => {
+    return wrongChars.toString();
+  };
+
+  const buildScoreModalTitle = () => {
+    const score = calcScore(rightChars.length, sourceLength);
+    // const score = 100;
+
+    let title = `本次成绩：${score} 分，\n测试不合格，继续加油哦～`;
+
+    if (score === 100) {
+      title = `本次成绩：${score} 分！真的太棒棒棒啦！ 👍👍👍`;
+    } else if (score >= 90) {
+      title = `本次成绩：${score} 分，好厉害，差一点点就满分咯～`;
+    } else if (score >= 60) {
+      title = `本次成绩：${score} 分，测试不合格，继续加油哦～`;
+    }
+
+    return title;
+  };
+
+  const requiredExamRangeTips = () => {
+    Taro.showToast({ icon: 'none', title: `请至少选择一个，不然无法开始哦`, duration: 2000 }).then();
+  };
+
+  const buildExamRangeChars = () => {
+    let examRangeChars = [];
+
+    props.examRange.forEach(key => {
+      // @ts-ignore
+      examRangeChars = examRangeChars.concat(charConfig[key]);
+    });
+
+    return charUtil.randomChar(examRangeChars);
+  };
+
+  const onInitSourceChars = (srcChars: string[]) => {
+    setSourceChars(srcChars);
+    setSourceLength(srcChars.length);
+  };
+
   const onClearAllState = () => {
     setInputChars([]);
     setRightChars([]);
@@ -86,6 +136,12 @@ export const ExamBanner = (props: IProps) => {
   };
 
   const onStart = () => {
+    if (props.examRange.length === 0) {
+      requiredExamRangeTips();
+
+      return;
+    }
+
     props.onStatarCallback(true);
 
     playChar();
@@ -95,7 +151,7 @@ export const ExamBanner = (props: IProps) => {
     props.onReStatarCallback();
 
     // here do not use `useState`
-    const newSourceChars = charUtil.randomChar(testData);
+    const newSourceChars = buildExamRangeChars();
 
     onClearAllState();
     onInitSourceChars(newSourceChars);
@@ -103,9 +159,17 @@ export const ExamBanner = (props: IProps) => {
     player(voiceConfig[`vc${newSourceChars[0]}`]);
   };
 
+  const onChangeExamRangeCallback = (arr: []) => {
+    if (arr.length === 0) {
+      requiredExamRangeTips();
+    }
+
+    props.onChangeExamRangeCallback(arr);
+  };
+
   useEffect(() => {
-    onInitSourceChars(charUtil.randomChar(testData));
-  }, []);
+    onInitSourceChars(buildExamRangeChars());
+  }, [props.examRange]);
 
   useEffect(() => {
     if (!props.selectedChar || sourceChars.length === 0) {
@@ -117,23 +181,27 @@ export const ExamBanner = (props: IProps) => {
     if (props.selectedChar.char === sourceChars[0]) {
       player(sfxConfig.sfxright);
 
-      Taro.showToast({ image: iconright, title: '', duration: 800 }).then();
-      setRightChars(rightChars.concat(sourceChars[0]));
+      Taro.showToast({ icon: 'success', title: '', duration: 500 }).then(() => {
+        setRightChars(rightChars.concat(sourceChars[0]));
+      });
     } else {
       player(sfxConfig.sfxwrong);
 
-      Taro.showToast({ image: iconwrong, title: '', duration: 800 }).then();
-      setWrongChars(wrongChars.concat(sourceChars[0]));
+      Taro.showToast({ icon: 'none', title: `错啦～，正确为 ( ${sourceChars[0]} )`, duration: 1500 }).then(() => {
+        setWrongChars(wrongChars.concat(sourceChars[0]));
+      });
     }
 
     sourceChars.shift();
     setSourceChars(sourceChars);
 
-    if (sourceChars.length) {
-      setTimeout(() => playChar(), 800);
-    } else {
-      props.onStatarCallback(false);
-    }
+    setTimeout(() => {
+      if (sourceChars.length) {
+        playChar();
+      } else {
+        props.onStatarCallback(false);
+      }
+    }, 1000);
   }, [props.selectedHash]);
 
   return (
@@ -141,28 +209,64 @@ export const ExamBanner = (props: IProps) => {
       <NavigatorButton title="去学习" url="/pages/study/study" image={iconstudy} />
 
       <View className={style['main-wrapper']}>
-        {!props.startStatus && (
-          <View onClick={onStart}>
-            <Text>开始咯～</Text>
+        {!props.startStatus && !inputChars.length && (
+          <View className={style['start-exam-wrapper']}>
+            <View
+              onClick={onStart}
+              className={cx(style['start-exam-button'], {
+                [style['start-exam-button--disable']]: props.examRange.length === 0,
+              })}
+            >
+              <Image className={style['start-exam-button-image']} src={iconexamwhire} />
+              <Text className={style['start-exam-button-text']}>开始测试</Text>
+            </View>
+
+            <View className={style['select-exam-range-wrapper']}>
+              <CheckboxGroup onChange={e => onChangeExamRangeCallback(e.detail.value)}>
+                {examRangeList.map(item => (
+                  <Label for={item.value} className={style['select-exam-range-label']} value={item.value}>
+                    <Checkbox
+                      key={item.value}
+                      className={style['select-exam-range-checkbox']}
+                      value={item.value}
+                      checked={Boolean(props.examRange.includes(item.value))}
+                    >
+                      <Text className={style['select-exam-range-checkbox-text']}>{item.text}</Text>
+                    </Checkbox>
+                  </Label>
+                ))}
+              </CheckboxGroup>
+            </View>
           </View>
         )}
         {props.startStatus && inputChars.length !== sourceLength && (
-          <View className={style['progress-bar']}>
-            <View className={style['progress-total']}>
-              {inputChars.length} / {sourceLength}
+          <View className={style['progress-wrapper']}>
+            <View className={style['progress-info']}>
+              <Image className={style['progress-info-image']} src={iconexamflag} />
+              <Text className={style['progress-info-text']}>
+                {inputChars.length} / {sourceLength}
+              </Text>
             </View>
+
             <Progress
               percent={calcPercent(sourceChars.length, sourceLength)}
-              active
-              strokeWidth={4}
+              strokeWidth={10}
+              activeColor="#35cb67"
+              borderRadius={Taro.getEnv() === 'WEAPP' ? 99 : 0}
               className={style['progress-bar']}
             />
+
+            <View className={style['exit-exam-button']}>
+              <Navigator url="/pages/exam/exam" type="reLaunch">
+                <Text className={style['exit-exam-button-text']}>退出测试</Text>
+              </Navigator>
+            </View>
           </View>
         )}
-        {inputChars.length === sourceLength && (
-          <View onClick={onRestart}>
-            <Text>游戏结束 {calcScore(rightChars.length, sourceLength)} 分</Text>
-            <Text>重来</Text>
+        {inputChars.length > 0 && inputChars.length === sourceLength && (
+          <View className={style['start-exam-button']} onClick={onRestart}>
+            <Image className={style['start-exam-button-image']} src={iconrefreshwhite} />
+            <Text className={style['start-exam-button-text']}>再测一次</Text>
           </View>
         )}
       </View>
