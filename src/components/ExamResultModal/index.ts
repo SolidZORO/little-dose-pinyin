@@ -1,0 +1,1 @@
+export { ExamResultModal } from './ExamResultModal';

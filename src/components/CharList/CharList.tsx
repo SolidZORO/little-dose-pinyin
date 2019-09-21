@@ -18,34 +18,8 @@ interface IProps {
   onSelectedCharCallback?: (i: IChar) => void;
 }
 
-const playerCtx = Taro.createInnerAudioContext();
-
 export const CharList = (props: IProps) => {
-  // const [playerStatus, setPlayerStatus] = useState<boolean>(false);
-  //
-  // const player = (src: string) => {
-  //   if (playerStatus) {
-  //     playerCtx.stop();
-  //   }
-  //
-  //   playerCtx.autoplay = true;
-  //   playerCtx.loop = false;
-  //   playerCtx.src = src;
-  //
-  //   playerCtx.onPlay(() => {
-  //     setPlayerStatus(true);
-  //   });
-  //
-  //   playerCtx.onEnded(() => {
-  //     setPlayerStatus(false);
-  //   });
-  // };
-
   const onSelectedCharCallback = (i: IChar) => {
-    // if (!props.disablePlayer) {
-    //   player(voiceConfig[`vc${i.path}`]);
-    // }
-
     if (props.onSelectedCharCallback) {
       props.onSelectedCharCallback(i);
     }
@@ -66,15 +40,16 @@ export const CharList = (props: IProps) => {
               <View key={`rows-${key}`} className={style['char-list']}>
                 {rows &&
                   rows.map(i => (
-                    <CharItem
-                      key={i.char}
-                      charItem={i}
-                      rowQuntity={props.rowQuntity}
-                      disablePlayer={props.disablePlayer}
-                      disableClick={props.disableClick}
-                      selectedChar={props.selectedChar}
-                      onSelectedCharCallback={() => !props.disableClick && onSelectedCharCallback(i)}
-                    />
+                    <View key={i.char} className={style['char-item']}>
+                      <CharItem
+                        charItem={i}
+                        rowQuntity={props.rowQuntity}
+                        disablePlayer={props.disablePlayer}
+                        disableClick={props.disableClick}
+                        selectedChar={props.selectedChar}
+                        onSelectedCharCallback={() => !props.disableClick && onSelectedCharCallback(i)}
+                      />
+                    </View>
                   ))}
               </View>
             );

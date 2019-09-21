@@ -8,9 +8,9 @@ import { voiceConfig } from '@/configs';
 import style from './style.less';
 
 interface IProps {
-  key: string;
-  rowQuntity: any;
   charItem: IChar;
+  key?: string;
+  rowQuntity?: number;
   selectedChar?: IChar;
   disablePlayer?: boolean;
   disableClick?: boolean;
@@ -22,7 +22,7 @@ const playerCtx = Taro.createInnerAudioContext();
 export const CharItem = (props: IProps) => {
   const [playerStatus, setPlayerStatus] = useState<boolean>(false);
 
-  const player = (src: string) => {
+  const player = async (src: string) => {
     if (playerStatus) {
       playerCtx.stop();
     }
@@ -30,6 +30,7 @@ export const CharItem = (props: IProps) => {
     playerCtx.autoplay = true;
     playerCtx.loop = false;
     playerCtx.src = src;
+    playerCtx.play();
 
     playerCtx.onPlay(() => {
       setPlayerStatus(true);
@@ -40,9 +41,9 @@ export const CharItem = (props: IProps) => {
     });
   };
 
-  const onSelectedCharCallback = (i: IChar) => {
+  const onSelectedCharCallback = async (i: IChar) => {
     if (!props.disablePlayer) {
-      player(voiceConfig[`vc${i.path}`]);
+      await player(voiceConfig[`vc${i.path}`]);
     }
 
     if (props.onSelectedCharCallback) {
@@ -54,8 +55,6 @@ export const CharItem = (props: IProps) => {
     <View
       key={props.charItem.char}
       className={cx(style['char-item'], {
-        [style['char-item--row-quntity-6']]: props.rowQuntity === 6,
-        [style['char-item--row-quntity-8']]: props.rowQuntity === 8,
         [style['char-item--active']]: props.selectedChar && props.charItem.char === props.selectedChar.char,
       })}
       onClick={() => !props.disableClick && onSelectedCharCallback(props.charItem)}

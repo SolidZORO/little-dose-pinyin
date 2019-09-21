@@ -16,7 +16,7 @@ export default () => {
   // const [startStatus, setStartStatus] = useState<boolean>(true);
 
   useEffect(() => {
-    Taro.setNavigationBarTitle({ title: '测试' }).then();
+    Taro.setNavigationBarTitle({ title: '做测试' }).then();
   }, []);
 
   const onSetSelectedChar = (data: IChar) => {

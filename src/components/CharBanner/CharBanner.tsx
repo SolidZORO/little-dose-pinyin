@@ -28,6 +28,7 @@ export const CharBanner = (props: IProps) => {
     playerCtx.autoplay = true;
     playerCtx.loop = false;
     playerCtx.src = src;
+    playerCtx.play();
 
     playerCtx.onPlay(() => {
       setPlayerStatus(true);

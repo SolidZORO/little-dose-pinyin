@@ -12,7 +12,7 @@ export default () => {
   const [selectedChar, setSelectedChar] = useState<IChar>();
 
   useEffect(() => {
-    Taro.setNavigationBarTitle({ title: '学习' }).then();
+    Taro.setNavigationBarTitle({ title: '学拼音' }).then();
 
     setSelectedChar(charConfig.sm[0][0]);
   }, []);

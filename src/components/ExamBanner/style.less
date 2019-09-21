@@ -32,8 +32,8 @@
 
   @font-size: 38px;
 
-  padding: 20px 50px;
-  margin-top: 60px;
+  padding: 20px 80px;
+  margin-top: 40px;
 
   .start-exam-button-image {
     @image-size: @font-size + 4;
@@ -49,26 +49,70 @@
   }
 }
 
+.start-exam-button--WEAPP {
+  margin-top: 20px;
+}
+
 .select-exam-range-wrapper {
   @size: 30px;
 
-  text-align: center;
-  margin-top: 10px;
+  margin-top: 5px;
+}
 
-  .select-exam-range-label {
-    margin: 0 15px;
-  }
+.select-exam-range-checkboxgroup {
+  text-align: center;
+  display: block;
+  padding: 0;
+}
+
+.select-exam-range-label {
+  text-align: left;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: auto;
 
   .select-exam-range-checkbox {
-    width: @size;
-    height: @size;
-    vertical-align: 5px;
+    @checkbox-width: 42px;
+
+    width: @checkbox-width !important;
+    height: @checkbox-width !important;
+    vertical-align: 1px;
+    margin-left: 10px;
   }
 
   .select-exam-range-checkbox-text {
-    font-size: @size;
+    //font-size: @size;
+    display: inline-block;
+    width: 65px;
+    font-size: 28px;
     padding-left: 8px;
     color: #777;
+  }
+}
+
+.select-exam-range-label--WEAPP {
+  width: 160px;
+  margin-top: 20px;
+
+  .select-exam-range-checkbox {
+    margin-left: 35px;
+  }
+
+  .select-exam-range-checkbox-text {
+    padding-left: 5px;
+  }
+}
+
+.select-exam-range-label--WEB {
+  width: auto;
+
+  .select-exam-range-checkbox {
+    margin-left: 25px;
+  }
+
+  .select-exam-range-checkbox-text {
+    padding-left: 13px;
   }
 }
 
@@ -131,7 +175,7 @@
   line-height: 1px;
   border-radius: 100px;
   border: 2px solid @bg-color;
-  padding: 5px 30px;
+  padding: 8px 30px;
   margin: 25px auto;
 
   .exit-exam-button-text {
@@ -147,35 +191,5 @@
     .exit-exam-button-text {
       color: darken(@bg-color, 20%);
     }
-  }
-}
-
-.modal-wrapper {
-  background: #0008;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  overflow: auto;
-  outline: 0;
-
-  &:before {
-    display: inline-block;
-    width: 0;
-    height: 100%;
-    vertical-align: middle;
-    content: '';
-  }
-
-  .modal-inner {
-    text-align: center;
-    background-color: #fff;
-    top: 0;
-    display: inline-block;
-    vertical-align: middle;
-    width: 90%;
-    margin: 5%;
   }
 }
