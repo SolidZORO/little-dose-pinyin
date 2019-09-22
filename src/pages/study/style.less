@@ -2,6 +2,11 @@
 
 .wrapper {
   background-color: transparent;
+  margin: 0 auto;
+
+  @media (min-width: @screen-md) {
+    max-width: @page-wrapper-max-width;
+  }
 }
 
 .wrapper-scroll {

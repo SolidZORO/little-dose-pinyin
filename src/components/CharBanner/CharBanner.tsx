@@ -47,36 +47,38 @@ export const CharBanner = (props: IProps) => {
 
   return (
     <View className={style['wrapper']}>
-      <NavigatorButton title="去测试" url="/pages/exam/exam" image={iconexam} />
+      <View className={style['wrapper-inner']}>
+        <NavigatorButton title="去测试" url="/pages/exam/exam" image={iconexam} />
 
-      {props.selectedChar && (
-        <View className={style['view-wrapper']} onClick={() => playChar()}>
-          <View className={style['icon-replay']}>
-            <Image
-              className={cx(style['icon-replay-image'], {
-                [style['icon-replay-image--action']]: playerStatus,
-              })}
-              src={iconreplay}
-            />
-          </View>
-
-          <View className={style['info-wrapper']}>
-            <View className={style['text-char']}>
-              <Text className={style['text-char-text']}>{props.selectedChar.char}</Text>
+        {props.selectedChar && (
+          <View className={style['view-wrapper']} onClick={() => playChar()}>
+            <View className={style['icon-replay']}>
+              <Image
+                className={cx(style['icon-replay-image'], {
+                  [style['icon-replay-image--action']]: playerStatus,
+                })}
+                src={iconreplay}
+              />
             </View>
-            <View className={style['text-ch']}>
-              <Text className={style['text-ch-text']}>{props.selectedChar.ch}</Text>
+
+            <View className={style['info-wrapper']}>
+              <View className={style['text-char']}>
+                <Text className={style['text-char-text']}>{props.selectedChar.char}</Text>
+              </View>
+              <View className={style['text-ch']}>
+                <Text className={style['text-ch-text']}>{props.selectedChar.ch}</Text>
+              </View>
+            </View>
+
+            <View className={style['image-wrapper']}>
+              <Image
+                className={style['image']}
+                src={imageConfig[`img${props.selectedChar.img || props.selectedChar.path}`]}
+              />
             </View>
           </View>
-
-          <View className={style['image-wrapper']}>
-            <Image
-              className={style['image']}
-              src={imageConfig[`img${props.selectedChar.img || props.selectedChar.path}`]}
-            />
-          </View>
-        </View>
-      )}
+        )}
+      </View>
     </View>
   );
 };

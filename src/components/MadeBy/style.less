@@ -1,0 +1,41 @@
+@import '../../styles/variables.less';
+
+.wrapper {
+  margin-top: 160px;
+  margin-bottom: 10px;
+}
+
+.madeby-wrapper {
+  text-align: center;
+  margin: 0 auto;
+  display: table;
+  line-height: 0;
+
+  .madeby-nav {
+    position: relative;
+    background-color: #fffc;
+    border: 2px solid @primary-color;
+    border-radius: 8px;
+    display: table;
+    padding: 16px 30px;
+    line-height: 0;
+  }
+
+  .madeby-made,
+  .madeby-name {
+    //font-size: 18px;
+    color: #555;
+  }
+
+  .madeby-made {
+    font-size: 18px;
+    vertical-align: 2px;
+  }
+
+  .madeby-name {
+    color: #000;
+    padding-left: 10px;
+    font-family: @number-family;
+    font-size: 24px;
+  }
+}

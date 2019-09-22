@@ -1,18 +1,11 @@
 @import '../../styles/variables.less';
 
 .wrapper {
-  height: @char-banner-height;
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  //
-  position: fixed;
-  left: 0;
-  right: 0;
-  background-color: @page-wrapper-bg-cloor;
-  z-index: 99;
-  box-shadow: -1px 2px 10px 0 #e4e4e4;
+  .fixed-wrapper();
+}
+
+.wrapper-inner {
+  .fixed-wrapper-inner();
 }
 
 .view-wrapper {
@@ -22,7 +15,6 @@
   justify-content: center;
   align-items: center;
   background-color: transparent;
-  //border: 2px solid transparent;
 }
 
 .icon-replay {

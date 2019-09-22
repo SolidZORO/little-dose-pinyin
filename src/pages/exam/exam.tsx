@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import Taro, { useEffect, useState } from '@tarojs/taro';
 import { View, Navigator, Button } from '@tarojs/components';
 import { charConfig } from '@/configs';
@@ -41,7 +42,7 @@ export default () => {
   };
 
   return (
-    <View className={style['wrapper']}>
+    <View className={cx(style['wrapper'])}>
       <ExamBanner
         examRange={examRange}
         selectedChar={selectedChar}

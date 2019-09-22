@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import Taro, { useEffect, useState } from '@tarojs/taro';
 import { View, Navigator, Button } from '@tarojs/components';
 import { charConfig } from '@/configs';
@@ -5,6 +6,7 @@ import { IChar } from '@/interfaces';
 
 import { CharList } from '@/components/CharList';
 import { CharBanner } from '@/components/CharBanner';
+import { MadeBy } from '@/components/MadeBy';
 
 import style from './style.less';
 
@@ -18,7 +20,7 @@ export default () => {
   }, []);
 
   return (
-    <View className={style['wrapper']}>
+    <View className={cx(style['wrapper'])}>
       <CharBanner selectedChar={selectedChar} />
 
       <View className={style['wrapper-scroll']}>
@@ -45,6 +47,8 @@ export default () => {
           selectedChar={selectedChar}
           onSelectedCharCallback={setSelectedChar}
         />
+
+        <MadeBy />
       </View>
     </View>
   );

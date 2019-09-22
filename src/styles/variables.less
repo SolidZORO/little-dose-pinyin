@@ -1,6 +1,7 @@
 //
 // PROJECT
 // ------------------------------------------
+@page-wrapper-max-width: 680px;
 @page-wrapper-padding-x: 24px;
 @page-card-padding-x: 16px;
 @page-wrapper-bg-cloor: #f7f6e8;
@@ -53,15 +54,31 @@
 //
 .button {
   @default-button-bg-color: #fff;
+  @default-button-shadow-color: #ddd;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 2px solid @default-button-bg-color;
   border-radius: 100px;
   line-height: 1;
+  padding: 12px;
+  //line-height: 40px;
   color: #333;
   background-color: @default-button-bg-color;
-  box-shadow: -3px 5px 10px 0 #ccc;
+  box-shadow: -3px 5px 10px 0 @default-button-shadow-color;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    border-color: transparent;
+    box-shadow: -3px 5px 10px 0 darken(@default-button-shadow-color, 2%);
+  }
+
+  &:active {
+    border-color: transparent;
+    box-shadow: -3px 5px 10px 0 darken(@default-button-shadow-color, 2%);
+  }
 }
 
 .button--primary {
@@ -79,5 +96,29 @@
   &:active {
     background-color: darken(@primary-color, 7%);
     border: 2px solid darken(@primary-color, 8%);
+  }
+}
+
+.fixed-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  box-shadow: -1px 2px 10px 0 #e4e4e4;
+  z-index: 99;
+  height: @char-banner-height;
+  background-color: @page-wrapper-bg-cloor;
+}
+
+.fixed-wrapper-inner {
+  position: relative;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  height: @char-banner-height;
+  margin: 0 auto;
+
+  @media (min-width: @screen-md) {
+    max-width: @page-wrapper-max-width;
   }
 }

@@ -187,90 +187,95 @@ export const ExamBanner = (props: IProps) => {
 
   return (
     <View className={style['wrapper']}>
-      <NavigatorButton title="去学习" url="/pages/study/study" image={iconstudy} />
+      <View className={style['wrapper-inner']}>
+        <NavigatorButton title="去学习" url="/pages/study/study" image={iconstudy} />
 
-      <View className={style['main-wrapper']}>
-        {!props.startStatus && !inputChars.length && (
-          <View className={style['start-exam-wrapper']}>
-            <View
-              onClick={onStart}
-              className={cx(style['start-exam-button'], style[`start-exam-button--${Taro.getEnv()}`], {
-                [style['start-exam-button--disable']]: props.examRange && props.examRange.length === 0,
-              })}
-            >
-              <Image className={style['start-exam-button-image']} src={iconexamwhire} />
-              <Text className={style['start-exam-button-text']}>开始测试</Text>
-            </View>
-
-            <View className={style['select-exam-range-wrapper']}>
-              <CheckboxGroup
-                className={style['select-exam-range-checkboxgroup']}
-                onChange={e => onChangeExamRangeCallback(e.detail.value)}
+        <View className={style['main-wrapper']}>
+          {!props.startStatus && !inputChars.length && (
+            <View className={style['start-exam-wrapper']}>
+              <View
+                onClick={onStart}
+                className={cx(style['start-exam-button'], style[`start-exam-button--${Taro.getEnv()}`], {
+                  [style['start-exam-button--disable']]: props.examRange && props.examRange.length === 0,
+                })}
               >
-                {examRangeList.map(item => (
-                  <View
-                    className={cx(style['select-exam-range-label'], style[`select-exam-range-label--${Taro.getEnv()}`])}
-                  >
-                    <Checkbox
-                      key={item.value}
-                      className={style['select-exam-range-checkbox']}
-                      value={item.value}
-                      checked={Boolean(props.examRange && props.examRange.includes(item.value))}
+                <Image className={style['start-exam-button-image']} src={iconexamwhire} />
+                <Text className={style['start-exam-button-text']}>开始测试</Text>
+              </View>
+
+              <View className={style['select-exam-range-wrapper']}>
+                <CheckboxGroup
+                  className={style['select-exam-range-checkboxgroup']}
+                  onChange={e => onChangeExamRangeCallback(e.detail.value)}
+                >
+                  {examRangeList.map(item => (
+                    <View
+                      className={cx(
+                        style['select-exam-range-label'],
+                        style[`select-exam-range-label--${Taro.getEnv()}`],
+                      )}
                     >
-                      <Text className={style['select-exam-range-checkbox-text']}>{item.text}</Text>
-                    </Checkbox>
-                  </View>
-                ))}
-              </CheckboxGroup>
+                      <Checkbox
+                        key={item.value}
+                        className={style['select-exam-range-checkbox']}
+                        value={item.value}
+                        checked={Boolean(props.examRange && props.examRange.includes(item.value))}
+                      >
+                        <Text className={style['select-exam-range-checkbox-text']}>{item.text}</Text>
+                      </Checkbox>
+                    </View>
+                  ))}
+                </CheckboxGroup>
+              </View>
             </View>
-          </View>
-        )}
-        {props.startStatus && inputChars.length !== examCharsLength && (
-          <View className={style['progress-wrapper']}>
-            <View className={style['progress-info']}>
-              <Image className={style['progress-info-image']} src={iconexamflag} />
-              <Text className={style['progress-info-text']}>
-                {inputChars.length} / {examCharsLength}
-              </Text>
-            </View>
+          )}
+          {props.startStatus && inputChars.length !== examCharsLength && (
+            <View className={style['progress-wrapper']}>
+              <View className={style['progress-info']}>
+                <Image className={style['progress-info-image']} src={iconexamflag} />
+                <Text className={style['progress-info-text']}>
+                  {inputChars.length} / {examCharsLength}
+                </Text>
+              </View>
 
-            <Progress
-              percent={calcPercent(examChars.length, examCharsLength)}
-              strokeWidth={10}
-              activeColor="#35cb67"
-              borderRadius={Taro.getEnv() === 'WEAPP' ? 99 : 0}
-              className={style['progress-bar']}
-            />
+              <Progress
+                percent={calcPercent(examChars.length, examCharsLength)}
+                strokeWidth={10}
+                activeColor="#35cb67"
+                borderRadius={Taro.getEnv() === 'WEAPP' ? 99 : 0}
+                className={style['progress-bar']}
+              />
 
-            <View className={style['exit-exam-button']}>
-              <Navigator url="/pages/exam/exam" type="reLaunch">
-                <Text className={style['exit-exam-button-text']}>退出测试</Text>
-              </Navigator>
+              <View className={style['exit-exam-button']}>
+                <Navigator url="/pages/exam/exam" type="reLaunch">
+                  <Text className={style['exit-exam-button-text']}>退出测试</Text>
+                </Navigator>
+              </View>
             </View>
-          </View>
-        )}
-        {inputChars.length > 0 && inputChars.length === examCharsLength && (
-          <View className={style['start-exam-button']} onClick={onRestart}>
-            <Image className={style['start-exam-button-image']} src={iconrefreshwhite} />
-            <Text className={style['start-exam-button-text']}>再测一次</Text>
-          </View>
-        )}
+          )}
+          {inputChars.length > 0 && inputChars.length === examCharsLength && (
+            <View className={style['start-exam-button']} onClick={onRestart}>
+              <Image className={style['start-exam-button-image']} src={iconrefreshwhite} />
+              <Text className={style['start-exam-button-text']}>再测一次</Text>
+            </View>
+          )}
+        </View>
+
+        {/* <ExamResultModal */}
+        {/*  inputChars={inputChars} */}
+        {/*  rightChars={rightChars} */}
+        {/*  wrongChars={wrongChars} */}
+        {/*  examCharsLength={examCharsLength} */}
+        {/* /> */}
+
+        {/* <ExamResultModal */}
+        {/*  inputChars={['a', 'o', 'e', 'ong', 'ing']} */}
+        {/*  rightChars={['a']} */}
+        {/*  wrongChars={['o', 'e', 'ong', 'ing', 'k', 'g', 'h', 'z', 'zhi', 'q']} */}
+        {/*  // examCharLength={examCharsLength} */}
+        {/*  examCharLength={3} */}
+        {/* /> */}
       </View>
-
-      {/* <ExamResultModal */}
-      {/*  inputChars={inputChars} */}
-      {/*  rightChars={rightChars} */}
-      {/*  wrongChars={wrongChars} */}
-      {/*  examCharsLength={examCharsLength} */}
-      {/* /> */}
-
-      {/* <ExamResultModal */}
-      {/*  inputChars={['a', 'o', 'e', 'ong', 'ing']} */}
-      {/*  rightChars={['a']} */}
-      {/*  wrongChars={['o', 'e', 'ong', 'ing', 'k', 'g', 'h', 'z', 'zhi', 'q']} */}
-      {/*  // examCharLength={examCharsLength} */}
-      {/*  examCharLength={3} */}
-      {/* /> */}
     </View>
   );
 };

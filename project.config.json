@@ -1,8 +1,8 @@
 {
 	"miniprogramRoot": "dist/",
-	"projectname": "pinyin",
+	"projectname": "%E5%B0%8F%E5%89%82%E9%87%8F%E6%8B%BC%E9%9F%B3",
 	"description": "desction",
-	"appid": "wx8183fcc5164cfcf1",
+	"appid": "wxea1be2de3d7c7168",
 	"setting": {
 		"urlCheck": false,
 		"es6": false,
