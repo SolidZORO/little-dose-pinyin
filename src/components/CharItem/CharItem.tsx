@@ -55,9 +55,10 @@ export const CharItem = (props: IProps) => {
     <View
       key={props.charItem.char}
       className={cx(style['char-item'], {
-        [style['char-item--active']]: props.selectedChar && props.charItem.char === props.selectedChar.char,
+        [style['char-item--active']]:
+          props.selectedChar && props.charItem && props.charItem.char === props.selectedChar.char,
       })}
-      onClick={() => !props.disableClick && onSelectedCharCallback(props.charItem)}
+      onClick={() => !props.disableClick && props.charItem && onSelectedCharCallback(props.charItem)}
     >
       {props.charItem.char}
     </View>

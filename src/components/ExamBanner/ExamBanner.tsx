@@ -26,7 +26,7 @@ interface IProps {
   onChangeExamRangeCallback: (arr: string[]) => void;
 }
 
-const testData = [[{ char: 'b', ch: '播', path: 'b' }, { char: 'p', ch: '坡', path: 'p' }]];
+// const testData = [[{ char: 'b', ch: '播', path: 'b' }, { char: 'p', ch: '坡', path: 'p' }]];
 
 const playerCtx = Taro.createInnerAudioContext();
 
@@ -44,17 +44,16 @@ export const ExamBanner = (props: IProps) => {
     },
   ];
 
-  // const [examChars, setExamChars] = useState<string[]>(charUtil.randomChar(testData));
   const [rawChars, setRawChars] = useState<string[]>([]);
   const [examChars, setExamChars] = useState<string[]>([]);
   const [examCharsLength, setExamCharsLength] = useState<number>(0);
+  const [examResultModalVisible, setExamResultModalVisible] = useState<boolean>(false);
 
   // 记录所有输入原始数据，用于排行榜，以及分析错误
   const [inputChars, setInputChars] = useState<string[]>([]);
   const [rightChars, setRightChars] = useState<string[]>([]);
   const [wrongChars, setWrongChars] = useState<string[]>([]);
 
-  const [examResultModal, setExamResultModal] = useState<boolean>(false);
   const [playerStatus, setPlayerStatus] = useState<boolean>(false);
 
   const player = (src: string) => {
@@ -110,11 +109,11 @@ export const ExamBanner = (props: IProps) => {
     setRawChars(sourceChars.concat());
   };
 
-  const onClearAllState = () => {
-    setInputChars([]);
-    setRightChars([]);
-    setWrongChars([]);
-  };
+  // const onClearAllState = () => {
+  //   setInputChars([]);
+  //   setRightChars([]);
+  //   setWrongChars([]);
+  // };
 
   const onStart = () => {
     if (props.examRange && props.examRange.length === 0) {
@@ -128,24 +127,21 @@ export const ExamBanner = (props: IProps) => {
     playChar();
   };
 
-  const onRestart = () => {
-    props.onReStatarCallback();
-
-    // here do not use `useState`
-    const newExamChars = buildExamRangeChars();
-
-    onClearAllState();
-    onInitExamChars(newExamChars);
-
-    player(voiceConfig[`vc${newExamChars[0]}`]);
-  };
-
   const onChangeExamRangeCallback = (arr: []) => {
     if (arr.length === 0) {
       requiredExamRangeTips();
     }
 
     props.onChangeExamRangeCallback(arr);
+  };
+
+  const onSaveResult = () => {
+    // TODO
+
+    console.log('examChars', examChars);
+    console.log('rawChars', rawChars);
+    console.log('rightChars', rightChars);
+    console.log('wrongChars', wrongChars);
   };
 
   useEffect(() => {
@@ -162,27 +158,24 @@ export const ExamBanner = (props: IProps) => {
     if (props.selectedChar.char === examChars[0]) {
       player(sfxConfig.sfxright);
 
-      Taro.showToast({ icon: 'success', title: '', duration: 500 }).then(() => {
-        setRightChars(rightChars.concat(examChars[0]));
-      });
+      Taro.showToast({ icon: 'success', title: '', duration: 300 }).then();
+      setRightChars(rightChars.concat(examChars[0]));
     } else {
       player(sfxConfig.sfxwrong);
 
-      Taro.showToast({ icon: 'none', title: `错啦～，正确为 ( ${examChars[0]} )`, duration: 1500 }).then(() => {
-        setWrongChars(wrongChars.concat(examChars[0]));
-      });
+      Taro.showToast({ icon: 'none', title: `错啦～，正确为 ( ${examChars[0]} )`, duration: 1500 }).then();
+      setWrongChars(wrongChars.concat(examChars[0]));
     }
 
     examChars.shift();
     setExamChars(examChars);
 
-    setTimeout(() => {
-      if (examChars.length) {
-        playChar();
-      } else {
-        props.onStatarCallback(false);
-      }
-    }, 1000);
+    if (examChars.length) {
+      setTimeout(() => playChar(), 1000);
+    } else {
+      setExamResultModalVisible(true);
+      onSaveResult();
+    }
   }, [props.selectedHash]);
 
   return (
@@ -229,7 +222,7 @@ export const ExamBanner = (props: IProps) => {
               </View>
             </View>
           )}
-          {props.startStatus && inputChars.length !== examCharsLength && (
+          {props.startStatus && (
             <View className={style['progress-wrapper']}>
               <View className={style['progress-info']}>
                 <Image className={style['progress-info-image']} src={iconexamflag} />
@@ -253,27 +246,39 @@ export const ExamBanner = (props: IProps) => {
               </View>
             </View>
           )}
-          {inputChars.length > 0 && inputChars.length === examCharsLength && (
-            <View className={style['start-exam-button']} onClick={onRestart}>
-              <Image className={style['start-exam-button-image']} src={iconrefreshwhite} />
-              <Text className={style['start-exam-button-text']}>再测一次</Text>
-            </View>
-          )}
         </View>
 
-        {/* <ExamResultModal */}
-        {/*  inputChars={inputChars} */}
-        {/*  rightChars={rightChars} */}
-        {/*  wrongChars={wrongChars} */}
-        {/*  examCharsLength={examCharsLength} */}
-        {/* /> */}
+        <ExamResultModal
+          // visible
+          visible={examResultModalVisible}
+          inputChars={inputChars}
+          rightChars={rightChars}
+          wrongChars={wrongChars}
+          examCharsLength={examCharsLength}
+        />
 
         {/* <ExamResultModal */}
-        {/*  inputChars={['a', 'o', 'e', 'ong', 'ing']} */}
-        {/*  rightChars={['a']} */}
-        {/*  wrongChars={['o', 'e', 'ong', 'ing', 'k', 'g', 'h', 'z', 'zhi', 'q']} */}
-        {/*  // examCharLength={examCharsLength} */}
-        {/*  examCharLength={3} */}
+        {/*  // inputChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
+        {/*  // rightChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
+        {/*  // wrongChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
+        {/*  // examCharsLength={10} */}
+        {/*  // examCharsLength={examCharsLength} */}
+        {/*  // // 60 */}
+        {/*  // inputChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
+        {/*  // rightChars={['ing', 'an', 'en', 'un', 'q', 'y']} */}
+        {/*  // wrongChars={['a', 'o', 'e', 'ong']} */}
+        {/*  // 59 */}
+        {/*  // inputChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
+        {/*  // rightChars={[]} */}
+        {/*  // wrongChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
+        {/*  // examCharsLength={10} */}
+        {/*  // visible */}
+        {/*  // 100 */}
+        {/*  inputChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
+        {/*  rightChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
+        {/*  wrongChars={[]} */}
+        {/*  examCharsLength={10} */}
+        {/*  visible */}
         {/* /> */}
       </View>
     </View>
