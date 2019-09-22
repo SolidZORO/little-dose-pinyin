@@ -8,6 +8,8 @@
 /.temp
 /.dist
 /dist
+/dist-web
+/dist-rn
 /_dist
 /.deploy
 /deploy

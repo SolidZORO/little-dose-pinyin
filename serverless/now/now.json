@@ -1,0 +1,11 @@
+{
+  "name": "little-dose-pinyin",
+  "version": 2,
+  "env": { "NODE_ENV": "production" },
+  "github": {
+    "enabled": false,
+    "autoAlias": false
+  },
+  "builds": [{ "src": "**", "use": "@now/static" }],
+  "routes": [{ "src": "^/static/(.*)", "dest": "/static/$1" }, { "src": "^/(.*)", "dest": "/index.html" }]
+}

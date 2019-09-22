@@ -1,0 +1,17 @@
+node_modules
+.idea/
+
+dist/
+.dist/
+_dist/
+
+deploy/
+.deploy/
+_deploy/
+
+temp/
+.temp/
+_temp/
+
+.next/
+designs/
