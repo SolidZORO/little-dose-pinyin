@@ -1,9 +1,10 @@
 import cx from 'classnames';
+import dayjs from 'dayjs';
 import Taro, { useState, useEffect } from '@tarojs/taro';
-import { View, Text, Navigator, Progress, Image, Label, Checkbox, CheckboxGroup } from '@tarojs/components';
+import { View, Text, Navigator, Progress, Image, Checkbox, CheckboxGroup } from '@tarojs/components';
 
-import { IChar } from '@/interfaces';
-import { charUtil } from '@/utils';
+import { IChar, IHistory, IHistoryStorage } from '@/interfaces';
+import { charUtil, examUtil } from '@/utils';
 import { charConfig, voiceConfig, sfxConfig } from '@/configs';
 
 import { NavigatorButton } from '@/components/NavigatorButton';
@@ -11,7 +12,6 @@ import { ExamResultModal } from '@/components/ExamResultModal';
 
 import iconstudy from '@/assets/icons/study.svg';
 import iconexamwhire from '@/assets/icons/exam-white.svg';
-import iconrefreshwhite from '@/assets/icons/refresh-white.svg';
 import iconexamflag from '@/assets/icons/exam-flag.svg';
 
 import style from './style.less';
@@ -145,12 +145,33 @@ export const ExamBanner = (props: IProps) => {
   };
 
   const onSaveResult = () => {
-    // TODO
+    const timestamp = new Date().getTime();
+    const dateYmd = dayjs(timestamp).format('YYYYMMDD');
+    const currentHistoryName = `history-${dateYmd}`;
+    const score = examUtil.calcScoreNumber(rightChars.length, examCharsLength);
 
-    console.log('examChars', examChars);
-    console.log('rawChars', rawChars);
-    console.log('rightChars', rightChars);
-    console.log('wrongChars', wrongChars);
+    const result: IHistory = {
+      timestamp,
+      score,
+      examRange: props.examRange,
+      rawChars,
+      inputChars,
+      rightChars,
+      wrongChars,
+    };
+
+    const storageInfo = Taro.getStorageInfoSync();
+
+    if (storageInfo.keys.includes(currentHistoryName)) {
+      // append
+      const data: IHistoryStorage = Taro.getStorageSync(currentHistoryName);
+      data.data.push(result);
+
+      Taro.setStorageSync(currentHistoryName, data);
+    } else {
+      // create
+      Taro.setStorageSync(currentHistoryName, { historyName: currentHistoryName, data: [result] });
+    }
   };
 
   useEffect(() => {
@@ -212,6 +233,7 @@ export const ExamBanner = (props: IProps) => {
                 >
                   {examRangeList.map(item => (
                     <View
+                      key={item.value}
                       className={cx(
                         style['select-exam-range-label'],
                         style[`select-exam-range-label--${Taro.getEnv()}`],
@@ -273,6 +295,7 @@ export const ExamBanner = (props: IProps) => {
           rightChars={rightChars}
           wrongChars={wrongChars}
           examCharsLength={examCharsLength}
+          // wrongChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']}
         />
 
         {/* <ExamResultModal */}

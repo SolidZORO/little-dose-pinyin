@@ -19,7 +19,7 @@ read -p "${CONFIRM_MESSAGE}" -n 1 -r KEY
 DIST_DIR="./dist-web"
 
 if [[ $KEY = "" ]]; then
-    yarn build:weapp && mv ./dist ./dist-web
+    yarn build:h5 && mv ./dist ./dist-web
     cp -fr ./serverless/now/* ${DIST_DIR}
     cd ${DIST_DIR} || exit
     pwd

@@ -61,23 +61,23 @@
   align-items: center;
   border: 2px solid @default-button-bg-color;
   border-radius: 100px;
-  line-height: 1;
   padding: 12px;
+  //line-height: 1;
   //line-height: 40px;
   color: #333;
   background-color: @default-button-bg-color;
-  box-shadow: -3px 5px 10px 0 @default-button-shadow-color;
+  box-shadow: 0 5px 10px 0 @default-button-shadow-color;
   transition: all 0.3s;
   cursor: pointer;
 
   &:hover {
     border-color: transparent;
-    box-shadow: -3px 5px 10px 0 darken(@default-button-shadow-color, 2%);
+    box-shadow: 0 5px 10px 0 darken(@default-button-shadow-color, 2%);
   }
 
   &:active {
     border-color: transparent;
-    box-shadow: -3px 5px 10px 0 darken(@default-button-shadow-color, 2%);
+    box-shadow: 0 5px 10px 0 darken(@default-button-shadow-color, 2%);
   }
 }
 

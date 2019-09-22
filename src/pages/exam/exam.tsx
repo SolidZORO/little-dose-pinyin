@@ -1,13 +1,15 @@
 import cx from 'classnames';
 import Taro, { useEffect, useState } from '@tarojs/taro';
-import { View, Navigator, Button } from '@tarojs/components';
+import { View } from '@tarojs/components';
 import { charConfig } from '@/configs';
 import { IChar } from '@/interfaces';
 
 import { CharList } from '@/components/CharList';
 import { ExamBanner } from '@/components/ExamBanner';
+import { NavigatorButton } from '@/components/NavigatorButton';
 
 import style from './style.less';
+import iconclock from '@/assets/icons/clock.svg';
 
 export default () => {
   const [examRange, setExamRange] = useState<string[]>(['sm', 'ym']);
@@ -78,6 +80,18 @@ export default () => {
           />
         )}
       </View>
+
+      {!startStatus && (
+        <View className={style['nav-to-history-wrapper']}>
+          <NavigatorButton
+            disableShadow
+            title="查看历史成绩"
+            url="/pages/history/history"
+            image={iconclock}
+            style={{ position: 'relative', left: 0, top: 2, boxShadow: 0 }}
+          />
+        </View>
+      )}
     </View>
   );
 };

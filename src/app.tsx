@@ -13,6 +13,7 @@ class App extends Component {
       'pages/exam/exam',
       'pages/study/study',
       'pages/about/about',
+      'pages/history/history',
     ],
     window: {
       backgroundTextStyle: 'light',

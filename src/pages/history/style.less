@@ -1,0 +1,41 @@
+@import '../../styles/variables.less';
+
+.wrapper {
+  background-color: transparent;
+  margin: 0 auto;
+
+  @media (min-width: @screen-md) {
+    max-width: @page-wrapper-max-width;
+  }
+}
+
+.wrapper-inner {
+  padding: 15px 40px;
+}
+
+.header {
+  margin-top: 50px;
+  text-align: center;
+  font-family: @number-family;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .header-image {
+    @size: 72px;
+
+    display: inline-block;
+    width: @size;
+    height: @size;
+  }
+
+  .header-text {
+    display: inline-block;
+    font-size: 60px;
+    padding-left: 20px;
+  }
+}
+
+.container {
+  margin-top: 80px;
+}

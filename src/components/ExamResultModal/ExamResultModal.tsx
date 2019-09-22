@@ -1,8 +1,8 @@
 import cx from 'classnames';
-import Taro from '@tarojs/taro';
+import Taro, { useState, useEffect } from '@tarojs/taro';
 import { View, Text, Image, Navigator } from '@tarojs/components';
 
-import { charUtil } from '@/utils';
+import { charUtil, examUtil } from '@/utils';
 import { CharItem } from '@/components/CharItem';
 
 import iconexam from '@/assets/icons/exam.svg';
@@ -18,23 +18,21 @@ interface IProps {
 }
 
 export const ExamResultModal = (props: IProps) => {
-  const calcScoreNumber = (): number => {
-    const result = Math.floor(Number((props.rightChars.length / props.examCharsLength) * 100));
+  const [score, setScore] = useState<number>(0);
 
-    return !Number.isNaN(result) ? result : 0;
-  };
-
-  const score = calcScoreNumber();
+  useEffect(() => {
+    setScore(examUtil.calcScoreNumber(props.rightChars.length, props.examCharsLength));
+  }, [props.rightChars]);
 
   const calcScoreText = () => {
-    let title = `成绩不错，要加油咯～`;
+    let title = `👍 成绩不错，要继续加油哦～`;
 
     switch (true) {
       case score === 100:
-        title = `👍 天！居然得满分！太太太秀了～`;
+        title = `🎉 天！居然得满分！太太太秀了～`;
         break;
       case score >= 90:
-        title = `好厉害，差一点点就满分咯～`;
+        title = `🎉 好厉害！差一点点就满分了～`;
         break;
       case score === 60:
         title = `好惊险啊啊啊啊啊，😂 压线过局！`;
@@ -43,7 +41,7 @@ export const ExamResultModal = (props: IProps) => {
         title = `️测试不合格！💔 要加油咯～`;
         break;
       case score === 0:
-        title = `🥳 真的酷！️硫酸手成就达成～`;
+        title = `😈 您已解锁「真﹒️硫酸手」成就～`;
         break;
       default:
         console.log(score);
@@ -78,7 +76,7 @@ export const ExamResultModal = (props: IProps) => {
             <View className={style['wrong-char-wrapper']}>
               <View className={style['wrong-char-title']}>
                 <Text className={style['wrong-char-title-text']}>
-                  错题项 {props.wrongChars.length} 个 / 点击字母可发音
+                  本次错题项共 {props.wrongChars.length} 个（点击字母可发音）
                 </Text>
               </View>
               <View className={style['wrong-char-x-scroll-wrapper']}>
@@ -87,7 +85,7 @@ export const ExamResultModal = (props: IProps) => {
                   style={{ width: `${props.wrongChars.length * 70}px` }}
                 >
                   {props.wrongChars.map(w => (
-                    <View key={w} className={style['wrong-char-item']}>
+                    <View className={style['wrong-char-item']} key={w}>
                       <CharItem charItem={charUtil.findCharObject(w)} />
                     </View>
                   ))}

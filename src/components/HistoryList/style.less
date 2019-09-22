@@ -1,0 +1,91 @@
+@import '../../styles/variables.less';
+
+.wrapper {
+  margin-bottom: 10px;
+}
+
+.history-wrapper {
+}
+
+.history-item-group {
+  margin-bottom: 60px;
+  font-family: @code-family;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 60px 50px;
+  box-shadow: 0 5px 15px 0 #ccc;
+}
+
+.history-title {
+  display: block;
+  //margin-bottom: 30px;
+
+  .history-title-image {
+    @size: 52px;
+
+    display: inline-block;
+    width: @size;
+    height: @size;
+  }
+
+  .history-title-text {
+    display: inline-block;
+    font-size: 40px;
+    font-family: @number-family;
+    vertical-align: 13px;
+    padding-left: 10px;
+  }
+}
+
+.history-item {
+  display: block;
+  margin-left: 60px;
+  margin-top: 30px;
+
+  .history-item-score {
+    display: inline-block;
+    //background-color: #eee;
+    border: 2px solid #ccc;
+    border-radius: 100px;
+    padding: 5px 15px;
+    width: 110px;
+    text-align: center;
+
+    .history-item-score-number {
+      display: inline-block;
+      font-family: @number-family;
+      font-size: 38px;
+      vertical-align: -11px;
+      line-height: 1;
+    }
+
+    .history-item-score-unit {
+      display: inline-block;
+      font-size: 22px;
+      padding-left: 7px;
+      vertical-align: -6px;
+    }
+  }
+
+  .history-item-score--WEB {
+    line-height: 0.6;
+  }
+
+  .history-item-score--100 {
+    border-color: darken(@primary-color, 2%);
+    background-color: @primary-color;
+    color: #fff;
+  }
+
+  .history-item-time {
+    display: inline-block;
+    padding-left: 20px;
+    font-size: 22px;
+    color: #aaa;
+    vertical-align: -4px;
+  }
+}
+
+.history-item--WEB {
+  margin-top: 5px;
+}

@@ -4,20 +4,20 @@
   display: inline-block;
   z-index: 11;
   position: absolute;
-  left: 5px;
-  top: 5px;
+  left: 2px;
+  top: 2px;
 }
 
 .nav-wrapper {
   display: block;
-  padding: 20px;
+  padding: 10px 25px;
 }
 
 .nav-button {
   display: table;
   align-items: center;
   border: 2px solid #fff5;
-  box-shadow: -1px 5px 6px 0 #e2e2e2;
+  box-shadow: 0 5px 6px 0 #e2e2e2;
   //background-color: transparent;
   background-color: transparent;
   font-size: 20px;
@@ -31,7 +31,11 @@
   }
 
   .nav-button-text {
-    padding: 0 6px 0 5px;
+    padding: 0 6px 0 8px;
     color: #555;
   }
+}
+
+.nav-button--disable-shadow {
+  box-shadow: none;
 }
