@@ -7,5 +7,5 @@
     "autoAlias": false
   },
   "builds": [{ "src": "**", "use": "@now/static" }],
-  "routes": [{ "src": "^/static/(.*)", "dest": "/static/$1" }, { "src": "^/(.*)", "dest": "/index.html" }]
+  "routes": [{ "src": "^/(.*)", "dest": "/$1" }, { "src": "^/(.*)", "dest": "/index.html" }]
 }

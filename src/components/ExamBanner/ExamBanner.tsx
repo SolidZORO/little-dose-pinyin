@@ -15,6 +15,7 @@ import iconrefreshwhite from '@/assets/icons/refresh-white.svg';
 import iconexamflag from '@/assets/icons/exam-flag.svg';
 
 import style from './style.less';
+import iconreplay from '@/assets/icons/replay.svg';
 
 interface IProps {
   selectedChar?: IChar;
@@ -29,6 +30,7 @@ interface IProps {
 // const testData = [[{ char: 'b', ch: '播', path: 'b' }, { char: 'p', ch: '坡', path: 'p' }]];
 
 const playerCtx = Taro.createInnerAudioContext();
+const sfxPlayerCtx = Taro.createInnerAudioContext();
 
 export const ExamBanner = (props: IProps) => {
   const examRangeList: { text: string; value: string; checked: boolean }[] = [
@@ -73,6 +75,13 @@ export const ExamBanner = (props: IProps) => {
     playerCtx.onEnded(() => {
       setPlayerStatus(false);
     });
+  };
+
+  const sfxPlayer = (src: string) => {
+    sfxPlayerCtx.autoplay = true;
+    sfxPlayerCtx.loop = false;
+    sfxPlayerCtx.src = src;
+    sfxPlayerCtx.play();
   };
 
   const playChar = () => {
@@ -156,14 +165,14 @@ export const ExamBanner = (props: IProps) => {
     setInputChars(inputChars.concat(props.selectedChar.char));
 
     if (props.selectedChar.char === examChars[0]) {
-      player(sfxConfig.sfxright);
+      sfxPlayer(sfxConfig.sfxright);
 
       Taro.showToast({ icon: 'success', title: '', duration: 300 }).then();
       setRightChars(rightChars.concat(examChars[0]));
     } else {
-      player(sfxConfig.sfxwrong);
+      sfxPlayer(sfxConfig.sfxwrong);
 
-      Taro.showToast({ icon: 'none', title: `错啦～，正确为 ( ${examChars[0]} )`, duration: 1500 }).then();
+      Taro.showToast({ icon: 'none', title: `错啦～ 正确为 ( ${examChars[0]} )`, duration: 1500 }).then();
       setWrongChars(wrongChars.concat(examChars[0]));
     }
 
@@ -243,6 +252,15 @@ export const ExamBanner = (props: IProps) => {
                 <Navigator url="/pages/exam/exam" type="reLaunch">
                   <Text className={style['exit-exam-button-text']}>退出测试</Text>
                 </Navigator>
+              </View>
+
+              <View className={style['icon-replay']} onClick={() => playChar()}>
+                <Image
+                  className={cx(style['icon-replay-image'], {
+                    [style['icon-replay-image--action']]: playerStatus,
+                  })}
+                  src={iconreplay}
+                />
               </View>
             </View>
           )}
