@@ -23,7 +23,9 @@ interface IProps {
 }
 
 export const ExamResultModal = (props: IProps) => {
-  const [score] = useState<number>(examUtil.calcScoreNumber(props.rightChars.length, props.examCharsLength));
+  const [score] = useState<number>(
+    examUtil.calcScoreNumber(props.rightChars && props.rightChars.length, props.examCharsLength),
+  );
 
   const onSaveResult = () => {
     const timestamp = new Date().getTime();
