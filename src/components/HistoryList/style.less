@@ -12,58 +12,70 @@
   font-family: @code-family;
   border-radius: 10px;
   background-color: #fff;
-  padding: 60px 50px;
+  padding: 60px 60px;
   box-shadow: 0 5px 15px 0 #ccc;
+  overflow: hidden;
+  position: relative;
 }
 
 .history-title {
   display: block;
-  //margin-bottom: 30px;
+  padding: 5px 0;
 
   .history-title-image {
-    @size: 52px;
+    @size: 58px;
 
     display: inline-block;
+    //opacity: 0.07;
+    //position: absolute;
+    //top: -75px;
+    //left: -80px;
     width: @size;
     height: @size;
   }
 
   .history-title-text {
     display: inline-block;
-    font-size: 40px;
+    font-size: 44px;
     font-family: @number-family;
-    vertical-align: 13px;
-    padding-left: 10px;
+    vertical-align: 14px;
+    padding-left: 20px;
   }
 }
 
 .history-item {
-  display: block;
-  margin-left: 60px;
   margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 100px;
+
+  .history-info {
+    display: inline-block;
+  }
 
   .history-item-score {
     display: inline-block;
-    //background-color: #eee;
     border: 2px solid #ccc;
-    border-radius: 100px;
-    padding: 5px 15px;
+    border-radius: 80px;
+    padding: 6px 0;
     width: 110px;
+    //margin-left: 10px;
     text-align: center;
 
     .history-item-score-number {
       display: inline-block;
       font-family: @number-family;
-      font-size: 38px;
-      vertical-align: -11px;
+      font-size: 28px;
+      vertical-align: -2px;
       line-height: 1;
     }
 
     .history-item-score-unit {
       display: inline-block;
-      font-size: 22px;
-      padding-left: 7px;
-      vertical-align: -6px;
+      font-size: 18px;
+      padding-left: 3px;
+      vertical-align: -2px;
     }
   }
 
@@ -77,12 +89,20 @@
     color: #fff;
   }
 
+  .history-total {
+    display: inline-block;
+    padding-left: 20px;
+    font-size: 22px;
+    color: #999;
+    vertical-align: 2px;
+  }
+
   .history-item-time {
     display: inline-block;
     padding-left: 20px;
     font-size: 22px;
-    color: #aaa;
-    vertical-align: -4px;
+    color: #ccc;
+    vertical-align: 2px;
   }
 }
 

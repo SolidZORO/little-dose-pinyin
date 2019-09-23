@@ -34,7 +34,6 @@
     "build:weapp": "yarn rimraf dist && taro build --type weapp",
     "build:h5": "yarn rimraf dist-web && taro build --type h5",
     "---------------------------------------------------------------------- ALIAS ----": "----",
-    "devweapp": "yarn dev:weapp",
     "dev": "yarn dev:h5"
   },
   "dependencies": {

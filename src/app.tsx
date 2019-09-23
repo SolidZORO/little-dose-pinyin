@@ -12,8 +12,8 @@ class App extends Component {
     pages: [
       'pages/study/study',
       'pages/exam/exam',
-      'pages/about/about',
       'pages/history/history',
+      'pages/about/about',
     ],
     window: {
       backgroundTextStyle: 'light',

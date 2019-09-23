@@ -6,6 +6,9 @@ import { Text, View, Image } from '@tarojs/components';
 import { IHistoryStorage } from '@/interfaces';
 import style from './style.less';
 import iconclock from '@/assets/icons/clock.svg';
+import { ExamResultTotal } from '@/components/ExamResultTotal';
+
+const historyPerfix = 'history-';
 
 export const HistoryList = () => {
   const [historyData, setHistoryData] = useState<IHistoryStorage[]>([]);
@@ -13,10 +16,13 @@ export const HistoryList = () => {
   useEffect(() => {
     const storageInfo = Taro.getStorageInfoSync();
     const nextHistoryData: IHistoryStorage[] = [];
-    const historyKeys = storageInfo.keys.filter(k => k.includes('history-'));
+    const historyKeys = storageInfo.keys
+      .filter(k => k.includes(historyPerfix))
+      .map(k => k.replace(historyPerfix, ''))
+      .sort((a: string, b: string) => Number(b) - Number(a));
 
     historyKeys.forEach(k => {
-      const sdata = Taro.getStorageSync(k);
+      const sdata = Taro.getStorageSync(`${historyPerfix}${k}`);
 
       if (sdata) {
         nextHistoryData.push(sdata);
@@ -38,7 +44,7 @@ export const HistoryList = () => {
             <View className={style['history-title']}>
               <Image className={style['history-title-image']} src={iconclock} />
               <Text className={style['history-title-text']}>
-                {dayjs(storage.historyName.replace('history-', '')).format('YYYY-MM-DD')}
+                {dayjs(storage.historyName.replace(historyPerfix, '')).format('YYYY-MM-DD')}
               </Text>
             </View>
 
@@ -48,18 +54,30 @@ export const HistoryList = () => {
                 className={cx(style['history-item'], style[`history-item--${Taro.getEnv()}`])}
                 onClick={onOpenItem}
               >
-                <View
-                  key={item.timestamp}
-                  className={cx(
-                    style['history-item-score'],
-                    style[`history-item-score--${Taro.getEnv()}`],
-                    style[`history-item-score--${item.score}`],
-                  )}
-                >
-                  <Text className={style['history-item-score-number']}>{item.score}</Text>
-                  <Text className={style['history-item-score-unit']}>分</Text>
+                <View className={style['history-info']}>
+                  <View
+                    key={item.timestamp}
+                    className={cx(
+                      style['history-item-score'],
+                      style[`history-item-score--${Taro.getEnv()}`],
+                      style[`history-item-score--${item.score}`],
+                    )}
+                  >
+                    <Text className={style['history-item-score-number']}>{item.score}</Text>
+                    <Text className={style['history-item-score-unit']}>分</Text>
+                  </View>
+
+                  <View className={style['history-total']}>
+                    <ExamResultTotal
+                      examCharsLength={item.inputChars.length}
+                      rightCharsLength={item.rightChars.length}
+                      wrongCharsLength={item.wrongChars.length}
+                      paddingWidth={3}
+                    />
+                  </View>
                 </View>
-                <Text className={style['history-item-time']}>{dayjs(item.timestamp).format('HH:mm:ss')}</Text>
+
+                <Text className={style['history-item-time']}>{dayjs(item.timestamp).format('HH:mm')}</Text>
               </View>
             ))}
           </View>

@@ -11,7 +11,7 @@ import iconexam from '@/assets/icons/exam.svg';
 export default () => {
   return (
     <View className={style['wrapper']}>
-      <NavigatorButton title="返回" url="/pages/study/study" image={iconhome} />
+      <NavigatorButton title="返回" url="/pages/exam/exam" image={iconhome} />
 
       <View className={style['wrapper-inner']}>
         <View className={style['header']}>

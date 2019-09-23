@@ -1,28 +1,65 @@
+import dayjs from 'dayjs';
 import cx from 'classnames';
 import Taro, { useState, useEffect } from '@tarojs/taro';
 import { View, Text, Image, Navigator } from '@tarojs/components';
 
 import { charUtil, examUtil } from '@/utils';
 import { CharItem } from '@/components/CharItem';
+import { ExamResultTotal } from '@/components/ExamResultTotal';
 
 import iconexam from '@/assets/icons/exam.svg';
 
 import style from './style.less';
+import { IHistory, IHistoryStorage } from '@/interfaces';
 
 interface IProps {
   visible: boolean;
+  rawChars: string[];
   inputChars: string[];
   rightChars: string[];
   wrongChars: string[];
+  examRange: string[];
   examCharsLength: number;
 }
 
 export const ExamResultModal = (props: IProps) => {
-  const [score, setScore] = useState<number>(0);
+  const [score] = useState<number>(examUtil.calcScoreNumber(props.rightChars.length, props.examCharsLength));
 
-  useEffect(() => {
-    setScore(examUtil.calcScoreNumber(props.rightChars.length, props.examCharsLength));
-  }, [props.rightChars]);
+  const onSaveResult = () => {
+    const timestamp = new Date().getTime();
+    const dateYmd = dayjs(timestamp).format('YYYYMMDD');
+    const currentHistoryName = `history-${dateYmd}`;
+    // const score = examUtil.calcScoreNumber(props.rightChars.length, props.examCharsLength);
+
+    const result: IHistory = {
+      timestamp,
+      score,
+      examRange: props.examRange,
+      rawChars: props.rawChars,
+      inputChars: props.inputChars,
+      rightChars: props.rightChars,
+      wrongChars: props.wrongChars,
+    };
+
+    const storageInfo = Taro.getStorageInfoSync();
+
+    if (storageInfo.keys.includes(currentHistoryName)) {
+      // append
+      const data: IHistoryStorage = Taro.getStorageSync(currentHistoryName);
+      data.data.push(result);
+
+      Taro.setStorageSync(currentHistoryName, data);
+    } else {
+      // create
+      Taro.setStorageSync(currentHistoryName, { historyName: currentHistoryName, data: [result] });
+    }
+  };
+
+  useEffect(() => onSaveResult(), []);
+
+  // useEffect(() => {
+  //   setScore(examUtil.calcScoreNumber(props.rightChars.length, props.examCharsLength));
+  // }, [props.rightChars]);
 
   const calcScoreText = () => {
     let title = `👍 成绩不错，要继续加油哦～`;
@@ -61,9 +98,12 @@ export const ExamResultModal = (props: IProps) => {
           <Image className={style['score-number-title-icon']} src={iconexam} />
           <Text className={style['score-number']}>本次成绩 {score} 分</Text>
           <View className={style['right-and-wrong-info']}>
-            <Text className={style['right-and-wrong-info-text']}>共 {props.examCharsLength}</Text>
-            <Text className={style['right-and-wrong-info-text']}>对 {props.rightChars.length}</Text>
-            <Text className={style['right-and-wrong-info-text']}>错 {props.wrongChars.length}</Text>
+            <ExamResultTotal
+              examCharsLength={props.examCharsLength}
+              rightCharsLength={props.rightChars && props.rightChars.length}
+              wrongCharsLength={props.wrongChars && props.wrongChars.length}
+              paddingWidth={8}
+            />
           </View>
         </View>
 

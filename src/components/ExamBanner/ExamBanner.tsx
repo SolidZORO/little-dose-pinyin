@@ -1,10 +1,9 @@
 import cx from 'classnames';
-import dayjs from 'dayjs';
 import Taro, { useState, useEffect } from '@tarojs/taro';
 import { View, Text, Navigator, Progress, Image, Checkbox, CheckboxGroup } from '@tarojs/components';
 
-import { IChar, IHistory, IHistoryStorage } from '@/interfaces';
-import { charUtil, examUtil } from '@/utils';
+import { IChar } from '@/interfaces';
+import { charUtil } from '@/utils';
 import { charConfig, voiceConfig, sfxConfig } from '@/configs';
 
 import { NavigatorButton } from '@/components/NavigatorButton';
@@ -118,12 +117,6 @@ export const ExamBanner = (props: IProps) => {
     setRawChars(sourceChars.concat());
   };
 
-  // const onClearAllState = () => {
-  //   setInputChars([]);
-  //   setRightChars([]);
-  //   setWrongChars([]);
-  // };
-
   const onStart = () => {
     if (props.examRange && props.examRange.length === 0) {
       requiredExamRangeTips();
@@ -142,36 +135,6 @@ export const ExamBanner = (props: IProps) => {
     }
 
     props.onChangeExamRangeCallback(arr);
-  };
-
-  const onSaveResult = () => {
-    const timestamp = new Date().getTime();
-    const dateYmd = dayjs(timestamp).format('YYYYMMDD');
-    const currentHistoryName = `history-${dateYmd}`;
-    const score = examUtil.calcScoreNumber(rightChars.length, examCharsLength);
-
-    const result: IHistory = {
-      timestamp,
-      score,
-      examRange: props.examRange,
-      rawChars,
-      inputChars,
-      rightChars,
-      wrongChars,
-    };
-
-    const storageInfo = Taro.getStorageInfoSync();
-
-    if (storageInfo.keys.includes(currentHistoryName)) {
-      // append
-      const data: IHistoryStorage = Taro.getStorageSync(currentHistoryName);
-      data.data.push(result);
-
-      Taro.setStorageSync(currentHistoryName, data);
-    } else {
-      // create
-      Taro.setStorageSync(currentHistoryName, { historyName: currentHistoryName, data: [result] });
-    }
   };
 
   useEffect(() => {
@@ -193,7 +156,7 @@ export const ExamBanner = (props: IProps) => {
     } else {
       sfxPlayer(sfxConfig.sfxwrong);
 
-      Taro.showToast({ icon: 'none', title: `错啦～ 正确为 ( ${examChars[0]} )`, duration: 1500 }).then();
+      Taro.showToast({ icon: 'none', title: `选错咯～ 答案是 [ ${examChars[0]} ]`, duration: 1500 }).then();
       setWrongChars(wrongChars.concat(examChars[0]));
     }
 
@@ -204,14 +167,13 @@ export const ExamBanner = (props: IProps) => {
       setTimeout(() => playChar(), 1000);
     } else {
       setExamResultModalVisible(true);
-      onSaveResult();
     }
   }, [props.selectedHash]);
 
   return (
     <View className={style['wrapper']}>
       <View className={style['wrapper-inner']}>
-        <NavigatorButton title="去学习" url="/pages/study/study" image={iconstudy} />
+        <NavigatorButton title="学拼音" url="/pages/study/study" image={iconstudy} />
 
         <View className={style['main-wrapper']}>
           {!props.startStatus && !inputChars.length && (
@@ -288,15 +250,19 @@ export const ExamBanner = (props: IProps) => {
           )}
         </View>
 
-        <ExamResultModal
-          // visible
-          visible={examResultModalVisible}
-          inputChars={inputChars}
-          rightChars={rightChars}
-          wrongChars={wrongChars}
-          examCharsLength={examCharsLength}
-          // wrongChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']}
-        />
+        {examResultModalVisible && (
+          <ExamResultModal
+            // visible
+            visible={examResultModalVisible}
+            rawChars={rawChars}
+            examRange={props.examRange}
+            inputChars={inputChars}
+            rightChars={rightChars}
+            examCharsLength={examCharsLength}
+            wrongChars={wrongChars}
+            // wrongChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']}
+          />
+        )}
 
         {/* <ExamResultModal */}
         {/*  // inputChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}

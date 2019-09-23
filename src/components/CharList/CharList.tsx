@@ -1,9 +1,8 @@
-import Taro, { useState } from '@tarojs/taro';
+import Taro from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import cx from 'classnames';
 
 import { IChar } from '@/interfaces';
-import { voiceConfig } from '@/configs';
 import { CharItem } from '@/components/CharItem';
 
 import style from './style.less';
