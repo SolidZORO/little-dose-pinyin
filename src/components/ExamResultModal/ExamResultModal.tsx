@@ -11,6 +11,7 @@ import iconexam from '@/assets/icons/exam.svg';
 
 import style from './style.less';
 import { IHistory, IHistoryStorage } from '@/interfaces';
+import { ShareMe } from '@/components/ShareMe';
 
 interface IProps {
   visible: boolean;
@@ -138,10 +139,16 @@ export const ExamResultModal = (props: IProps) => {
         </View>
 
         <View className={style['modal-footer']}>
-          <View className={cx(style['close-modal-button'], style[`close-modal-button--${Taro.getEnv()}`])}>
-            <Navigator url="/pages/exam/exam" type="reLaunch">
-              <Text className={style['close-modal-button-text']}>返回测试</Text>
-            </Navigator>
+          <Navigator
+            openType="redirect"
+            url="/pages/exam/exam"
+            className={cx(style['close-modal-button'], style[`close-modal-button--${Taro.getEnv()}`])}
+          >
+            <Text className={style['close-modal-button-text']}>返回测试</Text>
+          </Navigator>
+
+          <View className={style['share-me']}>
+            <ShareMe />
           </View>
         </View>
       </View>

@@ -84,7 +84,7 @@ export const ExamBanner = (props: IProps) => {
   };
 
   const playChar = () => {
-    player(voiceConfig[`vc${examChars[0]}`]);
+    player(voiceConfig[`vc${charUtil.findCharObject(examChars[0]).path}`]);
   };
 
   const calcPercent = (cl, sl): number => {
@@ -233,7 +233,7 @@ export const ExamBanner = (props: IProps) => {
               />
 
               <View className={style['exit-exam-button']}>
-                <Navigator url="/pages/exam/exam" type="reLaunch">
+                <Navigator openType="redirect" url="/pages/exam/exam">
                   <Text className={style['exit-exam-button-text']}>退出测试</Text>
                 </Navigator>
               </View>
@@ -263,30 +263,6 @@ export const ExamBanner = (props: IProps) => {
             // wrongChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']}
           />
         )}
-
-        {/* <ExamResultModal */}
-        {/*  // inputChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
-        {/*  // rightChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
-        {/*  // wrongChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
-        {/*  // examCharsLength={10} */}
-        {/*  // examCharsLength={examCharsLength} */}
-        {/*  // // 60 */}
-        {/*  // inputChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
-        {/*  // rightChars={['ing', 'an', 'en', 'un', 'q', 'y']} */}
-        {/*  // wrongChars={['a', 'o', 'e', 'ong']} */}
-        {/*  // 59 */}
-        {/*  // inputChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
-        {/*  // rightChars={[]} */}
-        {/*  // wrongChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
-        {/*  // examCharsLength={10} */}
-        {/*  // visible */}
-        {/*  // 100 */}
-        {/*  inputChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
-        {/*  rightChars={['a', 'o', 'e', 'ong', 'ing', 'an', 'en', 'un', 'q', 'y']} */}
-        {/*  wrongChars={[]} */}
-        {/*  examCharsLength={10} */}
-        {/*  visible */}
-        {/* /> */}
       </View>
     </View>
   );

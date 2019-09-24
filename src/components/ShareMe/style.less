@@ -1,0 +1,32 @@
+@import '../../styles/variables.less';
+
+.wrapper {
+  background-color: transparent;
+}
+
+.share-button {
+  padding-left: 10px;
+  display: table;
+  background-color: transparent;
+  margin: 0 auto;
+
+  &:after {
+    border: none;
+  }
+
+  .share-icon {
+    @size: 26px;
+
+    display: inline-block;
+    width: @size;
+    height: @size;
+  }
+
+  .share-text {
+    color: #777;
+    vertical-align: 4px;
+    padding-left: 10px;
+    font-size: 24px;
+    text-align: center;
+  }
+}

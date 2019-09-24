@@ -1,0 +1,1 @@
+export { ShareMe } from './ShareMe';

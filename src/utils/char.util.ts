@@ -11,7 +11,7 @@ const flatChar = (array: IChar[][]): string[] => {
 
 const randomChar = (array: IChar[][]): string[] => flatChar(array).sort(() => (Math.random() > 0.5 ? -1 : 1));
 
-const findCharObject = (key: string) => {
+const findCharObject = (key: string): IChar => {
   const allChars = [Object.keys(charConfig).map(i => charConfig[i])].flat(3);
 
   return allChars.find(c => c.char === key);

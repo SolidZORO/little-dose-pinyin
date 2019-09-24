@@ -8,7 +8,7 @@ interface IProps {
   title: string;
   image: any;
   url?: string;
-  type?: 'navigate' | 'redirect' | 'switchTab' | 'reLaunch' | 'navigateBack' | 'exit';
+  openType?: 'navigate' | 'redirect' | 'switchTab' | 'reLaunch' | 'navigateBack' | 'exit';
   style?: any;
   className?: string;
   disableShadow?: boolean;
@@ -17,7 +17,7 @@ interface IProps {
 export const NavigatorButton = (props: IProps) => {
   return (
     <View className={cx(style['wrapper'], props.className)} style={props.style}>
-      <Navigator url={props.url} className={style['nav-wrapper']} type={props.type || 'switchTab'}>
+      <Navigator openType={props.openType || 'redirect'} url={props.url} className={style['nav-wrapper']}>
         <View
           className={cx(style['nav-button'], {
             [style['nav-button--disable-shadow']]: props.disableShadow,

@@ -7,6 +7,7 @@ import { IChar } from '@/interfaces';
 import { CharList } from '@/components/CharList';
 import { CharBanner } from '@/components/CharBanner';
 import { MadeBy } from '@/components/MadeBy';
+import { ShareMe } from '@/components/ShareMe';
 
 import style from './style.less';
 
@@ -48,7 +49,13 @@ export default () => {
           onSelectedCharCallback={setSelectedChar}
         />
 
-        <MadeBy />
+        <View className={style['share-me']}>
+          <ShareMe />
+        </View>
+
+        <View className={style['made-by']}>
+          <MadeBy />
+        </View>
       </View>
     </View>
   );
