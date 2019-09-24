@@ -5,7 +5,7 @@ const alias = {
 };
 
 const config = {
-  projectName: 'pinyin-expression',
+  projectName: '拼音调试器',
   date: '2019-9-18',
   designWidth: 750,
   deviceRatio: {
