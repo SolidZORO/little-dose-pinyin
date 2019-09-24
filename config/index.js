@@ -5,7 +5,7 @@ const alias = {
 };
 
 const config = {
-  projectName: 'pingyin',
+  projectName: 'pinyin-expression',
   date: '2019-9-18',
   designWidth: 750,
   deviceRatio: {

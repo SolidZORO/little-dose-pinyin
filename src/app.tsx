@@ -18,7 +18,7 @@ class App extends Component {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#f7f6e8',
-      navigationBarTitleText: 'pinyin',
+      navigationBarTitleText: '',
       navigationBarTextStyle: 'black',
     },
   };
