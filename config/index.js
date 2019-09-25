@@ -5,7 +5,7 @@ const alias = {
 };
 
 const config = {
-  projectName: '拼音调试器',
+  projectName: '拼音PRO',
   date: '2019-9-18',
   designWidth: 750,
   deviceRatio: {
