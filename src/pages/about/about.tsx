@@ -67,7 +67,7 @@ export default () => {
           </View>
 
           {Object.keys(devlog).map(key => (
-            <View className={style['devlog-content']}>
+            <View className={style['devlog-content']} key={key}>
               <View className={style['devlog-content-date']}>
                 <Text className={style['devlog-content-symbol']}>#</Text>
                 {key.replace('log-', '')}

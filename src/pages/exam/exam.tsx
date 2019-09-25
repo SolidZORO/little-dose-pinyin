@@ -16,7 +16,7 @@ export default () => {
   const [selectedChar, setSelectedChar] = useState<IChar>();
   const [selectedHash, setSelectedHash] = useState<number>();
   const [startStatus, setStartStatus] = useState<boolean>(false);
-  // const [startStatus, setStartStatus] = useState<boolean>(true);
+  // const [startStatus, setStartStatus] = useState<boolean>(true);;
 
   useEffect(() => {
     Taro.setNavigationBarTitle({ title: '做测试' }).then();
@@ -81,7 +81,7 @@ export default () => {
         )}
       </View>
 
-      {!startStatus && (
+      {!startStatus && Taro.getStorageSync('has-history') && (
         <View className={style['nav-to-history-wrapper']}>
           <NavigatorButton
             disableShadow

@@ -46,6 +46,8 @@ export const ExamResultModal = (props: IProps) => {
 
     const storageInfo = Taro.getStorageInfoSync();
 
+    Taro.setStorageSync('has-history', 1);
+
     if (storageInfo.keys.includes(currentHistoryName)) {
       // append
       const data: IHistoryStorage = Taro.getStorageSync(currentHistoryName);
@@ -59,10 +61,6 @@ export const ExamResultModal = (props: IProps) => {
   };
 
   useEffect(() => onSaveResult(), []);
-
-  // useEffect(() => {
-  //   setScore(examUtil.calcScoreNumber(props.rightChars.length, props.examCharsLength));
-  // }, [props.rightChars]);
 
   const calcScoreText = () => {
     let title = `👍 成绩不错，要继续加油哦～`;
