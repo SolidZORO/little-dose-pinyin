@@ -1,6 +1,6 @@
 {
 	"miniprogramRoot": "dist/",
-	"projectname": "%E6%8B%BC%E9%9F%B3%E8%B0%83%E8%AF%95%E5%99%A8",
+	"projectname": "%E7%82%B9%E7%82%B9%E6%8B%BC%E9%9F%B3",
 	"description": "包含拼音「点读」与「测试」功能，帮助孩子快速掌握拼音。",
 	"appid": "wx6fc9ee049f274ccd",
 	"setting": {
