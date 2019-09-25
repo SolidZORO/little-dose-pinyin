@@ -2,13 +2,13 @@
 	"miniprogramRoot": "dist/",
 	"projectname": "%E6%8B%BC%E9%9F%B3%E8%B0%83%E8%AF%95%E5%99%A8",
 	"description": "包含拼音「点读」与「测试」功能，帮助孩子快速掌握拼音。",
-	"appid": "wxea1be2de3d7c7168",
+	"appid": "wx6fc9ee049f274ccd",
 	"setting": {
 		"urlCheck": false,
 		"es6": false,
 		"enhance": false,
 		"postcss": false,
-		"minified": false,
+		"minified": true,
 		"newFeature": true,
 		"coverView": true,
 		"nodeModules": true,
@@ -20,7 +20,8 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"uglifyFileName": true
 	},
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",

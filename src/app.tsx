@@ -1,8 +1,10 @@
 import '@tarojs/async-await';
 import Taro, { Component, Config } from '@tarojs/taro';
 
-import Search from '@/pages/study/study';
+import 'array-flat-polyfill';
 import '@/libs/promise-finally.lib';
+
+import Search from '@/pages/study/study';
 
 import '@/styles/global.less';
 

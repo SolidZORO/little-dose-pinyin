@@ -15,7 +15,6 @@
 
 .header {
   text-align: center;
-  font-family: @number-family;
   line-height: 1;
 
   .emoji {
@@ -25,6 +24,7 @@
   }
 
   .title {
+    font-family: @number-family;
     margin-top: 40px;
     display: block;
     font-size: 48px;
@@ -38,17 +38,29 @@
   }
 }
 
-.container {
+.container-text {
+  @text-font-size: 32px;
+
+  margin-top: 40px;
+  display: block;
+  font-size: @text-font-size;
+  //text-indent: @text-font-size * 2;
+  line-height: 1.6;
+}
+
+.container-title {
+  font-family: @number-family;
+  margin-top: 40px;
+  display: block;
+  font-size: 48px;
+  text-align: center;
+}
+
+.container-about {
   margin-top: 60px;
 
   .memo-text {
-    @font-size: 32px;
-
-    margin-top: 40px;
-    display: block;
-    font-size: @font-size;
-    text-indent: @font-size * 2;
-    line-height: 1.6;
+    .container-text();
   }
 
   .memo-image {
@@ -62,26 +74,79 @@
   .memo-text-tiny {
     @font-size: 18px;
 
-    margin-top: 40px;
+    margin-top: 20px;
     display: block;
     font-size: 18px;
     text-align: center;
-    color: #ccc;
+    color: #ddd;
   }
 }
 
-.footer {
-  margin-top: 130px;
+.container-version {
+  margin-top: 80px;
   margin-bottom: 30px;
   left: 0;
   right: 0;
 
-  .version {
+  .container-version-text {
     font-family: @code-family;
     display: table;
     text-align: center;
     margin: 0 auto;
     font-size: 18px;
-    color: #ccc;
+    color: #aaa;
+  }
+}
+
+.container-faq {
+  margin-top: 200px;
+  margin-bottom: 30px;
+  left: 0;
+  right: 0;
+
+  .faq-title {
+    .container-title();
+  }
+
+  .faq-text-q {
+    .container-text();
+    font-weight: 600;
+    display: block;
+  }
+
+  .faq-text-a {
+    .container-text();
+    margin-top: 8px;
+    margin-bottom: 60px;
+  }
+}
+
+.container-devlog {
+  margin-top: 200px;
+  margin-bottom: 100px;
+
+  .devlog-title {
+    .container-title();
+  }
+
+  .devlog-content {
+    .container-text();
+
+    .devlog-content-date {
+      display: block;
+      font-weight: bold;
+      font-family: @number-family;
+      font-size: 36px;
+
+      .devlog-content-symbol {
+        padding-right: 6px;
+        display: inline-block;
+      }
+    }
+
+    .devlog-content-text {
+      display: block;
+      margin-bottom: 15px;
+    }
   }
 }
