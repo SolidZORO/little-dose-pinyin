@@ -61,8 +61,10 @@
   justify-content: center;
   align-items: center;
   border: 2px solid @default-button-bg-color;
-  border-radius: 200px;
+  border-radius: 100px;
   padding: 12px;
+  -webkit-tap-highlight-color: transparent;
+
   //line-height: 1;
   //line-height: 40px;
   color: #333;
@@ -77,6 +79,7 @@
   }
 
   &:active {
+    -webkit-tap-highlight-color: transparent;
     border-color: transparent;
     box-shadow: 0 5px 10px 0 darken(@default-button-shadow-color, 2%);
   }

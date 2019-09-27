@@ -12,8 +12,8 @@ class App extends Component {
   config: Config = {
     // prettier-ignore
     pages: [
-      'pages/exam/exam',
       'pages/study/study',
+      'pages/exam/exam',
       'pages/about/about',
       'pages/history/history',
     ],
