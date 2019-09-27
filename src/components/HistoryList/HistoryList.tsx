@@ -39,49 +39,55 @@ export const HistoryList = () => {
   return (
     <View className={style['wrapper']}>
       <View className={style['history-wrapper']}>
-        {historyData.map(storage => (
-          <View key={storage.historyName} className={style['history-item-group']}>
-            <View className={style['history-title']}>
-              <Image className={style['history-title-image']} src={iconclock} />
-              <Text className={style['history-title-text']}>
-                {dayjs(storage.historyName.replace(historyPerfix, '')).format('YYYY-MM-DD')}
-              </Text>
-            </View>
+        {historyData &&
+          historyData.length > 0 &&
+          historyData.map(storage => (
+            <View key={storage.historyName} className={style['history-item-group']}>
+              <View className={style['history-title']}>
+                <Image className={style['history-title-image']} src={iconclock} />
+                <Text className={style['history-title-text']}>
+                  {dayjs(storage.historyName.replace(historyPerfix, '')).format('YYYY-MM-DD')}
+                </Text>
+              </View>
 
-            {storage.data.map(item => (
-              <View
-                key={item.timestamp}
-                className={cx(style['history-item'], style[`history-item--${Taro.getEnv()}`])}
-                onClick={onOpenItem}
-              >
-                <View className={style['history-info']}>
+              {storage.data &&
+                storage.data.length > 0 &&
+                storage.data.map(item => (
                   <View
                     key={item.timestamp}
-                    className={cx(
-                      style['history-item-score'],
-                      style[`history-item-score--${Taro.getEnv()}`],
-                      style[`history-item-score--${item.score}`],
-                    )}
+                    className={cx(style['history-item'], style[`history-item--${Taro.getEnv()}`])}
+                    onClick={onOpenItem}
                   >
-                    <Text className={style['history-item-score-number']}>{item.score}</Text>
-                    <Text className={style['history-item-score-unit']}>分</Text>
-                  </View>
+                    <View className={style['history-info']}>
+                      <View
+                        key={item.timestamp}
+                        className={cx(
+                          style['history-item-score'],
+                          style[`history-item-score--${Taro.getEnv()}`],
+                          style[`history-item-score--${item.score}`],
+                        )}
+                      >
+                        <Text className={style['history-item-score-number']}>{item.score}</Text>
+                        <Text className={style['history-item-score-unit']}>分</Text>
+                      </View>
 
-                  <View className={style['history-total']}>
-                    <ExamResultTotal
-                      examCharsLength={item.inputChars.length}
-                      rightCharsLength={item.rightChars.length}
-                      wrongCharsLength={item.wrongChars.length}
-                      paddingWidth={3}
-                    />
-                  </View>
-                </View>
+                      <View className={style['history-total']}>
+                        {item && item.inputChars && item.rightChars.length && item.wrongChars.length && (
+                          <ExamResultTotal
+                            examCharsLength={item.inputChars.length}
+                            rightCharsLength={item.rightChars.length}
+                            wrongCharsLength={item.wrongChars.length}
+                            paddingWidth={3}
+                          />
+                        )}
+                      </View>
+                    </View>
 
-                <Text className={style['history-item-time']}>{dayjs(item.timestamp).format('HH:mm')}</Text>
-              </View>
-            ))}
-          </View>
-        ))}
+                    <Text className={style['history-item-time']}>{dayjs(item.timestamp).format('HH:mm')}</Text>
+                  </View>
+                ))}
+            </View>
+          ))}
       </View>
     </View>
   );

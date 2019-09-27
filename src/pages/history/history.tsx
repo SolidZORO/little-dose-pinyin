@@ -9,7 +9,6 @@ import style from './style.less';
 import iconexam from '@/assets/icons/exam.svg';
 
 export default () => {
-  console.log(Taro.getCurrentPages().length);
   return (
     <View className={style['wrapper']}>
       <NavigatorButton
