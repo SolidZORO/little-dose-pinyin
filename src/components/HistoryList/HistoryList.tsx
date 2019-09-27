@@ -72,14 +72,12 @@ export const HistoryList = () => {
                       </View>
 
                       <View className={style['history-total']}>
-                        {item && item.inputChars && item.rightChars.length && item.wrongChars.length && (
-                          <ExamResultTotal
-                            examCharsLength={item.inputChars.length}
-                            rightCharsLength={item.rightChars.length}
-                            wrongCharsLength={item.wrongChars.length}
-                            paddingWidth={3}
-                          />
-                        )}
+                        <ExamResultTotal
+                          examCharsLength={item.inputChars && item.inputChars.length}
+                          rightCharsLength={item.rightChars && item.rightChars.length}
+                          wrongCharsLength={item.wrongChars && item.wrongChars.length}
+                          paddingWidth={3}
+                        />
                       </View>
                     </View>
 
