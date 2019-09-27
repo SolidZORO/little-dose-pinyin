@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import Taro, { useEffect, useState } from '@tarojs/taro';
-import { View, Navigator, Button } from '@tarojs/components';
+import { View } from '@tarojs/components';
 import { charConfig } from '@/configs';
 import { IChar } from '@/interfaces';
 
@@ -15,7 +15,7 @@ export default () => {
   const [selectedChar, setSelectedChar] = useState<IChar>();
 
   useEffect(() => {
-    Taro.setNavigationBarTitle({ title: '学拼音' }).then();
+    Taro.setNavigationBarTitle({ title: '拼音点读' }).then();
 
     setSelectedChar(charConfig.sm[0][0]);
   }, []);

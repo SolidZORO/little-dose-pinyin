@@ -19,7 +19,7 @@ export default () => {
   // const [startStatus, setStartStatus] = useState<boolean>(true);;
 
   useEffect(() => {
-    Taro.setNavigationBarTitle({ title: '做测试' }).then();
+    Taro.setNavigationBarTitle({ title: '拼音测试' }).then();
   }, []);
 
   const onSetSelectedChar = (data: IChar) => {
@@ -85,10 +85,12 @@ export default () => {
         <View className={style['nav-to-history-wrapper']}>
           <NavigatorButton
             disableShadow
+            openType="navigate"
             title="查看历史成绩"
             url="/pages/history/history"
             image={iconclock}
             style={{ position: 'relative', left: 0, top: 2, boxShadow: 0 }}
+            buttonWrapperStyle={{ padding: '5px' }}
           />
         </View>
       )}

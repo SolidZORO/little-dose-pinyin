@@ -16,7 +16,13 @@ export default () => {
 
   return (
     <View className={style['wrapper']}>
-      <NavigatorButton title="返回" openType="reLaunch" url="/pages/study/study" image={iconhome} />
+      <NavigatorButton
+        title="返回"
+        openType={Taro.getCurrentPages().length > 1 ? 'navigateBack' : 'navigate'}
+        url="/pages/study/study"
+        image={iconhome}
+        buttonWrapperStyle={{ padding: '1px 15px 15px 15px' }}
+      />
 
       <View className={style['wrapper-inner']}>
         <View className={style['header']}>
@@ -36,7 +42,7 @@ export default () => {
         </View>
 
         <View className={style['container-version']}>
-          <Text className={style['container-version-text']}>Version 0.0.2</Text>
+          <Text className={style['container-version-text']}>Version 0.0.3</Text>
         </View>
 
         <View className={style['container-faq']}>

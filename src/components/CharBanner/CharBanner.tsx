@@ -48,7 +48,12 @@ export const CharBanner = (props: IProps) => {
   return (
     <View className={style['wrapper']}>
       <View className={style['wrapper-inner']}>
-        <NavigatorButton title="做测试" url="/pages/exam/exam" image={iconexam} />
+        <NavigatorButton
+          title="做测试"
+          url="/pages/exam/exam"
+          image={iconexam}
+          buttonWrapperStyle={{ padding: '1px 15px 20px 15px' }}
+        />
 
         {props.selectedChar && (
           <View className={style['view-wrapper']} onClick={() => playChar()}>

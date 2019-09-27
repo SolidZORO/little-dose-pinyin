@@ -28,6 +28,8 @@ export const ExamResultModal = (props: IProps) => {
     examUtil.calcScoreNumber(props.rightChars && props.rightChars.length, props.examCharsLength),
   );
 
+  // const score = 100;
+
   const onSaveResult = () => {
     const timestamp = new Date().getTime();
     const dateYmd = dayjs(timestamp).format('YYYYMMDD');
@@ -67,7 +69,8 @@ export const ExamResultModal = (props: IProps) => {
 
     switch (true) {
       case score === 100:
-        title = `🎉 天！居然得满分！太太太秀了～`;
+        // eslint-disable-next-line no-irregular-whitespace
+        title = `　🥳 天啊！居然得了满分！优秀～`;
         break;
       case score >= 90:
         title = `🎉 好厉害！差一点点就满分了～`;
@@ -109,8 +112,15 @@ export const ExamResultModal = (props: IProps) => {
         </View>
 
         <View className={style['modal-body']}>
-          <View className={style['score-content']}>
+          <View className={cx(style['score-content'], style[`score-content--${score}`])}>
             <Text className={style['score-content-text']}>{calcScoreText()}</Text>
+
+            {score === 100 && (
+              <View className={style['score-content-emoji']}>
+                {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
+                <Text className={style['score-content-emoji-inner']}>🎉 </Text>
+              </View>
+            )}
           </View>
 
           {props.wrongChars && props.wrongChars.length > 0 && (

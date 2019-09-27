@@ -11,6 +11,7 @@ interface IProps {
   openType?: 'navigate' | 'redirect' | 'switchTab' | 'reLaunch' | 'navigateBack' | 'exit';
   style?: any;
   className?: string;
+  buttonWrapperStyle?: {};
   disableShadow?: boolean;
 }
 
@@ -18,13 +19,15 @@ export const NavigatorButton = (props: IProps) => {
   return (
     <View className={cx(style['wrapper'], props.className)} style={props.style}>
       <Navigator openType={props.openType || 'redirect'} url={props.url} className={style['nav-wrapper']}>
-        <View
-          className={cx(style['nav-button'], {
-            [style['nav-button--disable-shadow']]: props.disableShadow,
-          })}
-        >
-          <Image className={style['nav-button-image']} src={props.image} />
-          <Text className={style['nav-button-text']}>{props.title}</Text>
+        <View className={style['nav-button-wrapper']} style={props.buttonWrapperStyle}>
+          <View
+            className={cx(style['nav-button-inner'], {
+              [style['nav-button-inner--disable-shadow']]: props.disableShadow,
+            })}
+          >
+            <Image className={style['nav-button-image']} src={props.image} />
+            <Text className={style['nav-button-text']}>{props.title}</Text>
+          </View>
         </View>
       </Navigator>
     </View>

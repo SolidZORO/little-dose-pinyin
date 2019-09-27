@@ -12,9 +12,9 @@ import { ExamResultModal } from '@/components/ExamResultModal';
 import iconstudy from '@/assets/icons/study.svg';
 import iconexamwhire from '@/assets/icons/exam-white.svg';
 import iconexamflag from '@/assets/icons/exam-flag.svg';
+import iconreplay from '@/assets/icons/replay.svg';
 
 import style from './style.less';
-import iconreplay from '@/assets/icons/replay.svg';
 
 interface IProps {
   selectedChar?: IChar;
@@ -173,7 +173,12 @@ export const ExamBanner = (props: IProps) => {
   return (
     <View className={style['wrapper']}>
       <View className={style['wrapper-inner']}>
-        <NavigatorButton title="学拼音" url="/pages/study/study" image={iconstudy} />
+        <NavigatorButton
+          title="学拼音"
+          url="/pages/study/study"
+          image={iconstudy}
+          buttonWrapperStyle={{ padding: '1px 15px 20px 15px' }}
+        />
 
         <View className={style['main-wrapper']}>
           {!props.startStatus && !inputChars.length && (

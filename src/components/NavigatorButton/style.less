@@ -2,18 +2,21 @@
 
 .wrapper {
   display: inline-block;
-  z-index: 11;
+  z-index: 999;
   position: absolute;
   left: 2px;
   top: 2px;
 }
 
 .nav-wrapper {
-  display: block;
-  padding: 10px 25px;
+  background-color: transparent;
 }
 
-.nav-button {
+.nav-button-wrapper {
+  background-color: transparent;
+}
+
+.nav-button-inner {
   display: table;
   align-items: center;
   border: 2px solid #fff5;
@@ -22,7 +25,7 @@
   background-color: transparent;
   font-size: 22px;
   border-radius: 100px;
-  padding: 4px 15px;
+  padding: 5px 15px;
 
   .nav-button-image {
     width: 28px;
@@ -36,6 +39,6 @@
   }
 }
 
-.nav-button--disable-shadow {
+.nav-button-inner--disable-shadow {
   box-shadow: none;
 }
