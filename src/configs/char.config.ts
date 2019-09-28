@@ -34,7 +34,7 @@ export const charConfig: { sm: IChar[][]; ym: IChar[][];  zt: IChar[][] } = {
       { char: 'c', ch: '刺', path: 'c' },
       { char: 's', ch: '丝', path: 's' },
       { char: 'y', ch: '衣', path: 'y' },
-      { char: 'w', ch: '乌', path: 'w' },
+      { char: 'w', ch: '屋', path: 'w' },
     ],
   ],
   ym: [

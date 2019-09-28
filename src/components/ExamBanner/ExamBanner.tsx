@@ -30,6 +30,7 @@ interface IProps {
 
 const playerCtx = Taro.createInnerAudioContext();
 const sfxPlayerCtx = Taro.createInnerAudioContext();
+const typePlayerCtx = Taro.createInnerAudioContext();
 
 export const ExamBanner = (props: IProps) => {
   const examRangeList: { text: string; value: string; checked: boolean }[] = [
@@ -76,6 +77,7 @@ export const ExamBanner = (props: IProps) => {
     });
   };
 
+  // 对/错音效
   const sfxPlayer = (src: string) => {
     sfxPlayerCtx.autoplay = true;
     sfxPlayerCtx.loop = false;
@@ -83,8 +85,36 @@ export const ExamBanner = (props: IProps) => {
     sfxPlayerCtx.play();
   };
 
+  // 声母/韵母提示
+  const typePlayer = (src: string) => {
+    typePlayerCtx.autoplay = true;
+    typePlayerCtx.loop = false;
+    typePlayerCtx.src = src;
+    typePlayerCtx.play();
+  };
+
   const playChar = () => {
-    player(voiceConfig[`vc${charUtil.findCharObject(examChars[0]).path}`]);
+    const charVoice = voiceConfig[`vc${charUtil.findCharObject(examChars[0]).path}`];
+    const smList = ['y', 'w', 'v'];
+    const ymList = ['i', 'u', 'yu'];
+
+    if (props.examRange && props.examRange.length > 1) {
+      if (smList.includes(examChars[0])) {
+        typePlayer(sfxConfig.sfxsm);
+        setTimeout(() => player(charVoice), 1000);
+
+        return;
+      }
+
+      if (ymList.includes(examChars[0])) {
+        typePlayer(sfxConfig.sfxym);
+        setTimeout(() => player(charVoice), 1000);
+
+        return;
+      }
+    }
+
+    player(charVoice);
   };
 
   const calcPercent = (cl, sl): number => {
