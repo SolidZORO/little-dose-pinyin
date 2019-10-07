@@ -101,14 +101,14 @@ export const ExamBanner = (props: IProps) => {
     if (props.examRange && props.examRange.length > 1) {
       if (smList.includes(examChars[0])) {
         typePlayer(sfxConfig.sfxsm);
-        setTimeout(() => player(charVoice), 1000);
+        setTimeout(() => player(charVoice), 1200);
 
         return;
       }
 
       if (ymList.includes(examChars[0])) {
         typePlayer(sfxConfig.sfxym);
-        setTimeout(() => player(charVoice), 1000);
+        setTimeout(() => player(charVoice), 1200);
 
         return;
       }
