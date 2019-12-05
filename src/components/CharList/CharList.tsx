@@ -25,7 +25,7 @@ export const CharList = (props: IProps) => {
   };
 
   return (
-    <View className={style['wrapper']}>
+    <View className={style['component-wrapper']}>
       <View className={style['char-title']}>{props.charTitle}</View>
       <View
         className={cx(style['char-keyboard'], {

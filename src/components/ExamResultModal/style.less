@@ -1,6 +1,6 @@
 @import '../../styles/variables.less';
 
-.wrapper {
+.component-wrapper {
   background: #0008;
   position: fixed;
   top: 0;
@@ -31,10 +31,15 @@
     margin: 6%;
     border-radius: 10px;
     box-shadow: -10px 10px 40px 0 #555;
+
+    @media (min-width: @screen-md) {
+      width: 50%;
+      margin: 5% 25%;
+    }
   }
 }
 
-.wrapper--visible {
+.component-wrapper--visible {
   width: auto;
   height: auto;
   z-index: 1000;

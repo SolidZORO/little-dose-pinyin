@@ -17,7 +17,7 @@ interface IProps {
 
 export const NavigatorButton = (props: IProps) => {
   return (
-    <View className={cx(style['wrapper'], props.className)} style={props.style}>
+    <View className={cx(style['component-wrapper'], props.className)} style={props.style}>
       <Navigator openType={props.openType || 'redirect'} url={props.url} className={style['nav-wrapper']}>
         <View className={style['nav-button-wrapper']} style={props.buttonWrapperStyle}>
           <View

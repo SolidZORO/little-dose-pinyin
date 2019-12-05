@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import Taro from '@tarojs/taro';
 import { View, Text } from '@tarojs/components';
 
@@ -14,7 +15,13 @@ export const ExamResultTotal = (props: IProps) => {
   const styleProps = { padding: `0 ${props.paddingWidth || 6}px` };
 
   return (
-    <View className={style['wrapper']}>
+    <View
+      className={cx(
+        style['component-wrapper'],
+        style[`component-wrapper--${Taro.getEnv()}`],
+        `component-wrapper--${Taro.getEnv()}`,
+      )}
+    >
       <View className={style['right-and-wrong-info-text']} style={styleProps}>
         <Text className={style['right-and-wrong-info-text-label']}>共</Text>
         <Text className={style['right-and-wrong-info-text-number']}>{props.examCharsLength}</Text>

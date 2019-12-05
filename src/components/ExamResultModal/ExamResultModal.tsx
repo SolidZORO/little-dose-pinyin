@@ -65,24 +65,24 @@ export const ExamResultModal = (props: IProps) => {
   useEffect(() => onSaveResult(), []);
 
   const calcScoreText = () => {
-    let title = `👍 成绩不错，要继续加油哦～`;
+    let title = '👍 成绩不错，要继续加油哦～';
 
     switch (true) {
       case score === 100:
         // eslint-disable-next-line no-irregular-whitespace
-        title = `　🥳 天啊！居然得了满分！优秀～`;
+        title = '　🥳 天啊！居然得了满分！优秀～';
         break;
       case score >= 90:
-        title = `🎉 好厉害！差一点点就满分了～`;
+        title = '🎉 好厉害！差一点点就满分了～';
         break;
       case score === 60:
-        title = `好惊险啊啊啊啊啊，😂 压线过局！`;
+        title = '好惊险啊啊啊啊啊，😂 压线过局！';
         break;
       case score < 60 && score > 0:
-        title = `️测试不合格！💔 要加油咯～`;
+        title = '️测试不合格！💔 要加油咯～';
         break;
       case score === 0:
-        title = `😈 您已解锁「真﹒️硫酸手」成就～`;
+        title = '😈 您已解锁「真﹒️硫酸手」成就～';
         break;
       default:
         console.log(score);
@@ -93,9 +93,14 @@ export const ExamResultModal = (props: IProps) => {
 
   return (
     <View
-      className={cx(style['wrapper'], {
-        [style['wrapper--visible']]: props.visible,
-      })}
+      className={cx(
+        style['component-wrapper'],
+        style[`component-wrapper--${Taro.getEnv()}`],
+        `component-wrapper--${Taro.getEnv()}`,
+        {
+          [style['component-wrapper--visible']]: props.visible,
+        },
+      )}
     >
       <View className={style['modal-inner']}>
         <View className={style['modal-header']}>

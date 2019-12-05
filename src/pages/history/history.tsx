@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import Taro from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
 
@@ -10,7 +11,9 @@ import iconexam from '@/assets/icons/exam.svg';
 
 export default () => {
   return (
-    <View className={style['wrapper']}>
+    <View
+      className={cx(style['page-wrapper'], style[`page-wrapper--${Taro.getEnv()}`], `page-wrapper--${Taro.getEnv()}`)}
+    >
       <NavigatorButton
         title="返回"
         url="/pages/exam/exam"
@@ -19,7 +22,7 @@ export default () => {
         buttonWrapperStyle={{ padding: '1px 15px 15px 15px' }}
       />
 
-      <View className={style['wrapper-inner']}>
+      <View className={style['page-wrapper-inner']}>
         <View className={style['header']}>
           <Image className={style['header-image']} src={iconexam} />
           <Text className={style['header-text']}>历史测试成绩</Text>

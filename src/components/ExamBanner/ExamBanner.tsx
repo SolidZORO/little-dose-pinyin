@@ -123,7 +123,7 @@ export const ExamBanner = (props: IProps) => {
   };
 
   const requiredExamRangeTips = () => {
-    Taro.showToast({ icon: 'none', title: `请至少选择一个，不然无法开始哦`, duration: 2000 }).then();
+    Taro.showToast({ icon: 'none', title: '请至少选择一个，不然无法开始哦', duration: 2000 }).then();
   };
 
   const buildExamRangeChars = () => {
@@ -201,8 +201,14 @@ export const ExamBanner = (props: IProps) => {
   }, [props.selectedHash]);
 
   return (
-    <View className={style['wrapper']}>
-      <View className={style['wrapper-inner']}>
+    <View
+      className={cx(
+        style['component-wrapper'],
+        style[`component-wrapper--${Taro.getEnv()}`],
+        `component-wrapper--${Taro.getEnv()}`,
+      )}
+    >
+      <View className={style['component-wrapper-inner']}>
         <NavigatorButton
           title="学拼音"
           url="/pages/study/study"

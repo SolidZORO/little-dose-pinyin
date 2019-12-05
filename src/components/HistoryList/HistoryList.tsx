@@ -37,7 +37,13 @@ export const HistoryList = () => {
   };
 
   return (
-    <View className={style['wrapper']}>
+    <View
+      className={cx(
+        style['component-wrapper'],
+        style[`component-wrapper--${Taro.getEnv()}`],
+        `component-wrapper--${Taro.getEnv()}`,
+      )}
+    >
       <View className={style['history-wrapper']}>
         {historyData &&
           historyData.length > 0 &&

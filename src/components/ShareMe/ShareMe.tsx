@@ -6,7 +6,7 @@ import iconshare from '@/assets/icons/share.svg';
 
 export const ShareMe = () => {
   return (
-    <View className={style['wrapper']}>
+    <View className={style['component-wrapper']}>
       <Button openType="share" className={style['share-button']}>
         <Image className={style['share-icon']} src={iconshare} />
         <Text className={style['share-text']} src={iconshare}>

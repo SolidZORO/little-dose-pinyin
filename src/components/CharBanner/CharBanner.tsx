@@ -46,8 +46,14 @@ export const CharBanner = (props: IProps) => {
   };
 
   return (
-    <View className={style['wrapper']}>
-      <View className={style['wrapper-inner']}>
+    <View
+      className={cx(
+        style['component-wrapper'],
+        style[`component-wrapper--${Taro.getEnv()}`],
+        `component-wrapper--${Taro.getEnv()}`,
+      )}
+    >
+      <View className={style['component-wrapper-inner']}>
         <NavigatorButton
           title="做测试"
           url="/pages/exam/exam"

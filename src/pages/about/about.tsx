@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 
+import cx from 'classnames';
 import Taro from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
 
@@ -15,16 +16,19 @@ export default () => {
   const onPreviewImage = () => Taro.previewImage({ urls: [vxUrl] }).then();
 
   return (
-    <View className={style['wrapper']}>
+    <View
+      className={cx(style['page-wrapper'], style[`page-wrapper--${Taro.getEnv()}`], `page-wrapper--${Taro.getEnv()}`)}
+    >
       <NavigatorButton
         title="返回"
         openType={Taro.getCurrentPages().length > 1 ? 'navigateBack' : 'navigate'}
         url="/pages/study/study"
         image={iconhome}
         buttonWrapperStyle={{ padding: '1px 15px 15px 15px' }}
+        className={style[`navigator-button--${Taro.getEnv()}`]}
       />
 
-      <View className={style['wrapper-inner']}>
+      <View className={style['page-wrapper-inner']}>
         <View className={style['header']}>
           <Text className={style['emoji']}>👋</Text>
           <Text className={style['title']}>WELCOME</Text>

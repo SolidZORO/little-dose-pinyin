@@ -21,7 +21,9 @@ export default () => {
   }, []);
 
   return (
-    <View className={cx(style['wrapper'])}>
+    <View
+      className={cx(style['page-wrapper'], style[`page-wrapper--${Taro.getEnv()}`], `page-wrapper--${Taro.getEnv()}`)}
+    >
       <CharBanner selectedChar={selectedChar} />
 
       <View className={style['wrapper-scroll']}>
