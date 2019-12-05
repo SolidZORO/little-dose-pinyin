@@ -25,7 +25,7 @@ if [[ $KEY = "" ]]; then
     pwd
     echo ''
     echo ''
-    now -A now.json
+    now --prod
 else
     echo "CANCEL"
 fi
